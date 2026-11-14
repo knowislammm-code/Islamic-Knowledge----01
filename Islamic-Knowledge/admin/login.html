@@ -1,0 +1,952 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505">
+    <meta name="description" content="Islamic Knowledge secure administrator login.">
+    <title>Admin Login | Islamic Knowledge</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --black: #050505;
+            --gold: #D4AF37;
+            --gold-light: #F8E7A1;
+            --gold-dark: #8D6B16;
+            --text: #F8F5EA;
+            --muted: #B7AE98;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            min-height: 100svh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(ellipse at center, #21190B 0%, #0A0805 42%, #020202 100%);
+        }
+
+        /* =====================================
+           FIVE IDENTICAL ISLAMIC ROYAL DOORS
+        ===================================== */
+
+        .intro-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #020202;
+            perspective: 1800px;
+            animation: introDisappear 0.55s ease 6.95s forwards;
+        }
+
+        .door-scene {
+            position: absolute;
+            inset: 0;
+            transform-style: preserve-3d;
+        }
+
+        .door-layer {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            transform-style: preserve-3d;
+        }
+
+        /* First door is in front; fifth door is at the back. */
+        .door-layer:nth-child(1) { z-index: 5; }
+        .door-layer:nth-child(2) { z-index: 4; }
+        .door-layer:nth-child(3) { z-index: 3; }
+        .door-layer:nth-child(4) { z-index: 2; }
+        .door-layer:nth-child(5) { z-index: 1; }
+
+        .door {
+            position: relative;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            background:
+                radial-gradient(ellipse at center, #49300D 0%, #211605 42%, #080704 100%);
+            border: 2px solid #B58A25;
+            box-shadow:
+                inset 0 0 55px rgba(212, 175, 55, 0.22),
+                inset 0 0 12px rgba(248, 231, 161, 0.25),
+                0 0 35px rgba(212, 175, 55, 0.15);
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+        }
+
+        .door-left {
+            border-right: 2px solid var(--gold-light);
+            transform-origin: left center;
+            animation: openLeft 0.85s cubic-bezier(.72, 0, .25, 1) forwards;
+        }
+
+        .door-right {
+            border-left: 2px solid var(--gold-light);
+            transform-origin: right center;
+            animation: openRight 0.85s cubic-bezier(.72, 0, .25, 1) forwards;
+        }
+
+        /* Each door opens one second after the previous door. */
+        .door-layer:nth-child(1) .door {
+            animation-delay: 0.20s;
+        }
+
+        .door-layer:nth-child(2) .door {
+            animation-delay: 1.20s;
+        }
+
+        .door-layer:nth-child(3) .door {
+            animation-delay: 2.20s;
+        }
+
+        .door-layer:nth-child(4) .door {
+            animation-delay: 3.20s;
+        }
+
+        .door-layer:nth-child(5) .door {
+            animation-delay: 4.20s;
+        }
+
+        /* Royal Islamic arch frame */
+        .door::before {
+            content: "";
+            position: absolute;
+            inset: 4% 5%;
+            border: 3px solid rgba(212, 175, 55, 0.85);
+            border-radius: 48% 48% 5px 5px;
+            box-shadow:
+                inset 0 0 35px rgba(212, 175, 55, 0.18),
+                0 0 18px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Central Islamic ornamental emblem */
+        .door::after {
+            content: "۞";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--gold-light);
+            font-size: clamp(65px, 11vw, 145px);
+            text-shadow:
+                0 0 12px #D4AF37,
+                0 0 35px rgba(248, 231, 161, 0.9);
+            opacity: 0.95;
+        }
+
+        .door-pattern {
+            position: absolute;
+            inset: 12% 13%;
+            border: 2px solid rgba(212, 175, 55, 0.55);
+            border-radius: 46% 46% 4px 4px;
+            background:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent 0,
+                    transparent 17px,
+                    rgba(212, 175, 55, 0.13) 18px,
+                    transparent 20px
+                ),
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent 0,
+                    transparent 17px,
+                    rgba(212, 175, 55, 0.13) 18px,
+                    transparent 20px
+                );
+            box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.12);
+        }
+
+        .door-inner-frame {
+            position: absolute;
+            inset: 19% 20%;
+            border: 1px solid rgba(248, 231, 161, 0.45);
+            border-radius: 44% 44% 3px 3px;
+        }
+
+        .door-handle {
+            position: absolute;
+            top: 50%;
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #FFF1B8, #D4AF37 55%, #74500C);
+            box-shadow: 0 0 15px rgba(248, 231, 161, 0.8);
+        }
+
+        .door-left .door-handle {
+            right: 9%;
+        }
+
+        .door-right .door-handle {
+            left: 9%;
+        }
+
+        .door-center {
+            position: absolute;
+            z-index: 6;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 3px;
+            background: var(--gold-light);
+            box-shadow:
+                0 0 12px 4px var(--gold),
+                0 0 65px 25px rgba(212, 175, 55, 0.55);
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+
+        @keyframes openLeft {
+            0% {
+                transform: rotateY(0deg);
+            }
+            100% {
+                transform: rotateY(-105deg);
+            }
+        }
+
+        @keyframes openRight {
+            0% {
+                transform: rotateY(0deg);
+            }
+            100% {
+                transform: rotateY(105deg);
+            }
+        }
+
+        /* =====================================
+           GOLDEN REVEAL
+        ===================================== */
+
+        .golden-light {
+            position: absolute;
+            z-index: 7;
+            inset: 0;
+            pointer-events: none;
+            background: radial-gradient(
+                ellipse at center,
+                rgba(255, 225, 145, 0.95) 0%,
+                rgba(212, 175, 55, 0.35) 20%,
+                transparent 65%
+            );
+            opacity: 0;
+            animation: lightReveal 1.4s ease 4.95s forwards;
+        }
+
+        @keyframes lightReveal {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            100% {
+                opacity: 0.9;
+                transform: scale(1.4);
+            }
+        }
+
+        .intro-brand {
+            position: absolute;
+            z-index: 8;
+            left: 15px;
+            right: 15px;
+            top: 13%;
+            text-align: center;
+            opacity: 0;
+            animation: brandReveal 0.9s ease 5s forwards;
+            pointer-events: none;
+        }
+
+        .intro-emblem {
+            color: var(--gold-light);
+            font-size: clamp(30px, 5vw, 55px);
+            text-shadow: 0 0 25px rgba(212, 175, 55, 0.9);
+            margin-bottom: 8px;
+        }
+
+        .intro-brand h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(17px, 3vw, 30px);
+            letter-spacing: 4px;
+            color: var(--gold-light);
+            text-shadow: 0 0 22px rgba(212, 175, 55, 0.7);
+        }
+
+        .intro-brand p {
+            margin-top: 8px;
+            font-size: 10px;
+            letter-spacing: 4px;
+            color: #F4D989;
+        }
+
+        @keyframes brandReveal {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =====================================
+           JIGSAW LOGIN ASSEMBLY
+        ===================================== */
+
+        .puzzle-stage {
+            position: absolute;
+            z-index: 10;
+            width: min(420px, 88vw);
+            height: 300px;
+            top: 50%;
+            left: 50%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 3px;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .puzzle-piece {
+            position: relative;
+            background:
+                linear-gradient(145deg, #F8E7A1 0%, #D4AF37 35%, #73520D 100%);
+            border: 1px solid #F8E7A1;
+            border-radius: 5px;
+            box-shadow:
+                0 0 15px rgba(212, 175, 55, 0.65),
+                inset 0 1px 5px rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            transform:
+                translate(var(--from-x), var(--from-y))
+                rotate(var(--rotation))
+                scale(0.3);
+            animation: puzzleAssemble 1.45s cubic-bezier(.2, .8, .2, 1) 5.2s forwards;
+        }
+
+        .puzzle-piece::after {
+            content: "";
+            position: absolute;
+            inset: 5px;
+            border: 1px solid rgba(30, 20, 5, 0.55);
+            border-radius: 3px;
+            background:
+                linear-gradient(135deg, rgba(255,255,255,0.18), transparent);
+        }
+
+        .puzzle-piece:nth-child(1)  { --from-x: -100vw; --from-y: -80vh; --rotation: -160deg; }
+        .puzzle-piece:nth-child(2)  { --from-x: 80vw; --from-y: -100vh; --rotation: 120deg; }
+        .puzzle-piece:nth-child(3)  { --from-x: -90vw; --from-y: 70vh; --rotation: 210deg; }
+        .puzzle-piece:nth-child(4)  { --from-x: 100vw; --from-y: 80vh; --rotation: -140deg; }
+        .puzzle-piece:nth-child(5)  { --from-x: 90vw; --from-y: -60vh; --rotation: 180deg; }
+        .puzzle-piece:nth-child(6)  { --from-x: -100vw; --from-y: 20vh; --rotation: -90deg; }
+        .puzzle-piece:nth-child(7)  { --from-x: 70vw; --from-y: 100vh; --rotation: 160deg; }
+        .puzzle-piece:nth-child(8)  { --from-x: -70vw; --from-y: -100vh; --rotation: -180deg; }
+        .puzzle-piece:nth-child(9)  { --from-x: 100vw; --from-y: 10vh; --rotation: 90deg; }
+        .puzzle-piece:nth-child(10) { --from-x: -100vw; --from-y: 90vh; --rotation: -130deg; }
+        .puzzle-piece:nth-child(11) { --from-x: 80vw; --from-y: -80vh; --rotation: 200deg; }
+        .puzzle-piece:nth-child(12) { --from-x: 100vw; --from-y: 100vh; --rotation: -200deg; }
+
+        @keyframes puzzleAssemble {
+            0% {
+                opacity: 0;
+                transform:
+                    translate(var(--from-x), var(--from-y))
+                    rotate(var(--rotation))
+                    scale(0.3);
+            }
+            65% {
+                opacity: 1;
+                transform: translate(0, 0) rotate(8deg) scale(1.08);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+        }
+
+        /* =====================================
+           INTRO FINISH
+        ===================================== */
+
+        @keyframes introDisappear {
+            to {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+        }
+
+        /* =====================================
+           LOGIN POPUP
+        ===================================== */
+
+        .login-wrapper {
+            width: 100%;
+            max-width: 440px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(35px) scale(0.85);
+            transition:
+                opacity 0.8s ease,
+                transform 0.8s cubic-bezier(.2, .8, .2, 1),
+                visibility 0.8s;
+        }
+
+        .login-wrapper.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .login-card {
+            position: relative;
+            padding: 38px 32px;
+            overflow: hidden;
+            background:
+                linear-gradient(145deg, rgba(35, 30, 18, 0.88), rgba(7, 7, 7, 0.96));
+            border: 1px solid rgba(212, 175, 55, 0.75);
+            border-radius: 22px;
+            box-shadow:
+                0 30px 90px rgba(0, 0, 0, 0.75),
+                0 0 35px rgba(212, 175, 55, 0.18),
+                inset 0 1px 0 rgba(255, 231, 161, 0.2);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+        }
+
+        .login-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 15%;
+            width: 70%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 29px;
+        }
+
+        .brand-icon {
+            width: 68px;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            border-radius: 20px;
+            background: linear-gradient(145deg, #F8E7A1, #B58A25 55%, #73520D);
+            color: #100D06;
+            font-size: 35px;
+            box-shadow:
+                0 8px 25px rgba(212, 175, 55, 0.25),
+                inset 0 2px 3px rgba(255,255,255,0.5);
+        }
+
+        .brand h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            margin-bottom: 7px;
+            color: #fff9e8;
+        }
+
+        .brand h1 span {
+            color: var(--gold-light);
+        }
+
+        .brand p {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .admin-label {
+            text-align: center;
+            color: var(--gold-light);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 27px;
+        }
+
+        .form-group {
+            margin-bottom: 19px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 9px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #E9DFC3;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.55);
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: 0.25s;
+        }
+
+        input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+        }
+
+        input::placeholder {
+            color: #81765D;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 8px;
+            border: 1px solid #F8E7A1;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #F8E7A1, #D4AF37 55%, #9B741C);
+            color: #171105;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-shadow: 0 8px 22px rgba(212, 175, 55, 0.18);
+            transition: 0.25s;
+        }
+
+        .login-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(212, 175, 55, 0.32);
+        }
+
+        .login-button:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+
+        .message {
+            display: none;
+            padding: 12px;
+            margin-top: 18px;
+            border-radius: 8px;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .message.error {
+            display: block;
+            background: rgba(220, 70, 70, 0.12);
+            border: 1px solid rgba(220, 70, 70, 0.35);
+            color: #FFAAAA;
+        }
+
+        .message.success {
+            display: block;
+            background: rgba(70, 180, 110, 0.12);
+            border: 1px solid rgba(70, 180, 110, 0.35);
+            color: #9BE3B2;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 23px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--gold-light);
+        }
+
+        .security-note {
+            margin-top: 23px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            color: #8E846C;
+            font-size: 10px;
+            text-align: center;
+            line-height: 1.7;
+        }
+
+        /* =====================================
+           MOBILE RESPONSIVENESS
+        ===================================== */
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+
+            .login-card {
+                padding: 30px 22px;
+            }
+
+            .brand h1 {
+                font-size: 21px;
+            }
+
+            .intro-brand {
+                top: 10%;
+            }
+
+            .intro-brand h1 {
+                letter-spacing: 2px;
+            }
+
+            .intro-brand p {
+                letter-spacing: 2px;
+            }
+
+            .puzzle-stage {
+                width: 88vw;
+                height: 260px;
+            }
+        }
+
+        @media (max-height: 650px) {
+            .login-card {
+                padding-top: 22px;
+                padding-bottom: 22px;
+            }
+
+            .brand {
+                margin-bottom: 16px;
+            }
+
+            .brand-icon {
+                width: 48px;
+                height: 48px;
+                margin-bottom: 9px;
+                font-size: 27px;
+            }
+
+            .admin-label {
+                margin-bottom: 17px;
+            }
+
+            .form-group {
+                margin-bottom: 12px;
+            }
+
+            .security-note {
+                margin-top: 14px;
+                padding-top: 10px;
+            }
+        }
+
+        /* Respect device motion preferences. */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-delay: 0ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- FIVE IDENTICAL ISLAMIC ROYAL DOORS -->
+    <section class="intro-screen" id="introScreen" aria-label="Islamic Knowledge introduction">
+
+        <div class="door-scene">
+
+            <!-- DOOR 1 -->
+            <div class="door-layer">
+                <div class="door door-left">
+                    <div class="door-pattern"></div>
+                    <div class="door-inner-frame"></div>
+                    <div class="door-handle"></div>
+                </div>
+                <div class="door door-right">
+                    <div class="door-pattern"></div>
+                    <div class="door-inner-frame"></div>
+                    <div class="door-handle"></div>
+                </div>
+            </div>
+
+            <!-- DOOR 2 -->
+            <div class="door-layer">
+                <div class="door door-left">
+                    <div class="door-pattern"></div>
+                    <div class="door-inner-frame"></div>
+                    <div class="door-handle"></div>
+                </div>
+                <div class="door door-right">
+                    <div class="door-pattern"></div>
+                    <div class="door-inner-frame"></div>
+                    <div class="door-handle"></div>
+                </div>
+            </div>
+
+            <!-- DOOR 3 -->
+            <div class="door-layer">
+                <div class="door door-left">
+                    <div class="door-pattern"></div>
+                    <div class="door-inner-frame"></div>
+                    <div class="door-handle"></div>
+                </div>
+                <div class="door door-right">
+                    <div class="door-pattern"></div>
+                    <div class="door-inner-frame"></div>
+                    <div class="door-handle"></div>
+                </div>
+            </div>
+
+            <!-- DOOR 4 -->
+            <div class="door-layer">
+                <div class="door door-left">
+                    <div class="door-pattern"></div>
+                    <div class="door-inner-frame"></div>
+                    <div class="door-handle"></div>
+                </div>
+                <div class="door door-right">
+                    <div class="door-pattern"></div>
+                    <div class="door-inner-frame"></div>
+                    <div class="door-handle"></div>
+                </div>
+            </div>
+
+            <!-- DOOR 5 -->
+            <div class="door-layer">
+                <div class="door door-left">
+                    <div class="door-pattern"></div>
+                    <div class="door-inner-frame"></div>
+                    <div class="door-handle"></div>
+                </div>
+                <div class="door door-right">
+                    <div class="door-pattern"></div>
+                    <div class="door-inner-frame"></div>
+                    <div class="door-handle"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="door-center"></div>
+        <div class="golden-light"></div>
+
+        <!-- BRAND REVEAL -->
+        <div class="intro-brand">
+            <div class="intro-emblem">☪</div>
+            <h1>ISLAMIC KNOWLEDGE</h1>
+            <p>ADMINISTRATION PORTAL</p>
+        </div>
+
+        <!-- JIGSAW PIECES ASSEMBLE INTO LOGIN PANEL -->
+        <div class="puzzle-stage" aria-hidden="true">
+            <span class="puzzle-piece"></span>
+            <span class="puzzle-piece"></span>
+            <span class="puzzle-piece"></span>
+            <span class="puzzle-piece"></span>
+            <span class="puzzle-piece"></span>
+            <span class="puzzle-piece"></span>
+            <span class="puzzle-piece"></span>
+            <span class="puzzle-piece"></span>
+            <span class="puzzle-piece"></span>
+            <span class="puzzle-piece"></span>
+            <span class="puzzle-piece"></span>
+            <span class="puzzle-piece"></span>
+        </div>
+
+    </section>
+
+    <!-- LOGIN FORM -->
+    <main class="login-wrapper" id="loginWrapper">
+        <section class="login-card">
+
+            <div class="brand">
+                <div class="brand-icon">☪</div>
+                <h1>Islamic <span>Knowledge</span></h1>
+                <p>Manage your Islamic Knowledge platform</p>
+            </div>
+
+            <div class="admin-label">ADMINISTRATOR LOGIN</div>
+
+            <form id="loginForm">
+
+                <div class="form-group">
+                    <label for="email">Admin Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter admin email"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="login-button" id="loginButton">
+                    Sign In to Admin Panel
+                </button>
+
+                <div id="message" class="message" role="alert" aria-live="polite"></div>
+
+            </form>
+
+            <a href="../index.html" class="back-link">
+                ← Back to Islamic Knowledge Website
+            </a>
+
+            <div class="security-note">
+                Restricted area. Authorized administrators only.
+                <br>
+                Protected by Firebase Authentication and Admin UID verification.
+            </div>
+
+        </section>
+    </main>
+
+    <!-- INTRO TIMING -->
+    <script>
+        window.addEventListener("load", () => {
+            const introScreen = document.getElementById("introScreen");
+            const loginWrapper = document.getElementById("loginWrapper");
+
+            const reducedMotion = window.matchMedia(
+                "(prefers-reduced-motion: reduce)"
+            ).matches;
+
+            const introDuration = reducedMotion ? 100 : 7100;
+
+            window.setTimeout(() => {
+                introScreen.style.display = "none";
+                loginWrapper.classList.add("show");
+            }, introDuration);
+        });
+    </script>
+
+    <!-- EXISTING FIREBASE AUTHENTICATION -->
+    <script type="module">
+        import { auth } from "../js/config.js";
+
+        import {
+            signInWithEmailAndPassword,
+            signOut
+        } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+        const ADMIN_UID = "O4CvdeZdX4a0Z9ryHF58aNdIZgY2";
+
+        const loginForm = document.getElementById("loginForm");
+        const loginButton = document.getElementById("loginButton");
+        const message = document.getElementById("message");
+
+        function showMessage(text, type) {
+            message.textContent = text;
+            message.className = "message " + type;
+        }
+
+        loginForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+
+            message.className = "message";
+            message.textContent = "";
+
+            loginButton.disabled = true;
+            loginButton.textContent = "Verifying administrator...";
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+                const user = userCredential.user;
+
+                if (user.uid !== ADMIN_UID) {
+                    await signOut(auth);
+
+                    showMessage(
+                        "Access denied. This account is not an authorized administrator.",
+                        "error"
+                    );
+
+                    loginButton.disabled = false;
+                    loginButton.textContent = "Sign In to Admin Panel";
+                    return;
+                }
+
+                showMessage(
+                    "Admin verified successfully! Redirecting to dashboard...",
+                    "success"
+                );
+
+                loginButton.textContent = "Opening Dashboard...";
+
+                window.location.replace("./dashboard.html");
+
+            } catch (error) {
+                console.error("Admin login error:", error);
+
+                const messages = {
+                    "auth/invalid-credential": "Incorrect email or password.",
+                    "auth/user-not-found": "No account exists with this email.",
+                    "auth/wrong-password": "Incorrect password.",
+                    "auth/invalid-email": "Please enter a valid email address.",
+                    "auth/too-many-requests": "Too many attempts. Please try again later."
+                };
+
+                showMessage(
+                    messages[error.code] ||
+                    "Login failed. Please check your details and try again.",
+                    "error"
+                );
+
+                loginButton.disabled = false;
+                loginButton.textContent = "Sign In to Admin Panel";
+            }
+        });
+    </script>
+
+</body>
+</html>

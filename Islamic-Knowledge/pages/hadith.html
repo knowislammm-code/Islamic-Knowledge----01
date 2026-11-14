@@ -1,0 +1,1496 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Read Hadith from the six major Hadith collections in Arabic, Urdu and English.">
+  <meta name="theme-color" content="#F8F7F3">
+
+  <title>Hadith | Islamic Knowledge</title>
+
+  <script src="../js/theme.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+
+  <style>
+    :root {
+      --bg: #10251D;
+      --card: #193429;
+      --card-hover: #214333;
+      --gold: #D7B76B;
+      --text: #FFFFFF;
+      --muted: #B8C5BC;
+      --border: #315344;
+      --input: #132C21;
+      --danger: #e58b8b;
+      --success: #8bd6a5;
+      --shadow: 0 12px 35px rgba(0, 0, 0, .18);
+    }
+
+    [data-theme="light"] {
+      --bg: #F5F7F3;
+      --card: #FFFFFF;
+      --card-hover: #F0F4EE;
+      --gold: #98752E;
+      --text: #1C3025;
+      --muted: #65756B;
+      --border: #DCE5DC;
+      --input: #F5F7F3;
+      --shadow: 0 12px 35px rgba(30, 50, 35, .07);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      transition: background .25s, color .25s;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, select {
+      font: inherit;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: auto;
+    }
+
+    header {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .navbar {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      font-family: "Poppins", sans-serif;
+      font-size: 21px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .brand span {
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 14px;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--gold);
+    }
+
+    /* SETTINGS ICON — MATCHES HOME PAGE */
+
+    .settings-icon {
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #D4AF37;
+      background: #0B0B0B;
+      border: 1px solid rgba(212, 175, 55, .55);
+      border-radius: 50%;
+      text-decoration: none;
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    }
+
+    .settings-icon svg {
+      width: 23px;
+      height: 23px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform .4s ease;
+    }
+
+    .settings-icon:hover {
+      border-color: #FFD700;
+      box-shadow: 0 0 12px rgba(212, 175, 55, .35);
+      transform: scale(1.06);
+    }
+
+    .settings-icon:hover svg {
+      transform: rotate(45deg);
+    }
+
+    .settings-icon:focus-visible {
+      outline: 2px solid #D4AF37;
+      outline-offset: 4px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .settings-icon,
+      .settings-icon svg {
+        transition: none;
+      }
+    }
+
+    .hero {
+      text-align: center;
+      padding: 58px 0 35px;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    h1, h2, h3 {
+      font-family: "Poppins", sans-serif;
+    }
+
+    .hero h1 {
+      font-size: clamp(30px, 5vw, 46px);
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 650px;
+      margin: auto;
+      font-size: 15px;
+    }
+
+    .gold-text {
+      color: var(--gold);
+    }
+
+    .search-wrap {
+      max-width: 550px;
+      margin: 28px auto 0;
+    }
+
+    .search-input,
+    .number-input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--input);
+      color: var(--text);
+      outline: none;
+    }
+
+    .search-input:focus,
+    .number-input:focus {
+      border-color: var(--gold);
+    }
+
+    .number-input option {
+      background: var(--card);
+      color: var(--text);
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin: 28px 0 18px;
+    }
+
+    .section-heading h2 {
+      font-size: 21px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .collection-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 38px;
+    }
+
+    .collection-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      cursor: pointer;
+      text-align: left;
+      color: var(--text);
+      transition: .2s;
+      box-shadow: var(--shadow);
+    }
+
+    .collection-card:hover,
+    .collection-card.selected {
+      border-color: var(--gold);
+      background: var(--card-hover);
+      transform: translateY(-2px);
+    }
+
+    .collection-icon {
+      color: var(--gold);
+      font-size: 25px;
+      margin-bottom: 12px;
+    }
+
+    .collection-card h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .collection-card p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .reader {
+      display: none;
+      margin: 10px 0 60px;
+      scroll-margin-top: 90px;
+    }
+
+    .reader.visible {
+      display: block;
+    }
+
+    .reader-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .reader-header h2 {
+      font-size: 22px;
+    }
+
+    .back-btn {
+      color: var(--gold);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 9px 13px;
+      cursor: pointer;
+    }
+
+    .reader-controls {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 12px;
+      align-items: end;
+      margin-bottom: 16px;
+    }
+
+    .field label {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 7px;
+    }
+
+    .action-btn {
+      border: 1px solid var(--gold);
+      background: var(--gold);
+      color: #17251D;
+      padding: 12px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .action-btn.secondary {
+      background: transparent;
+      color: var(--gold);
+    }
+
+    .action-btn:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+    }
+
+    .status {
+      display: none;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 13px 16px;
+      color: var(--muted);
+      font-size: 13px;
+      margin: 15px 0;
+    }
+
+    .status.visible {
+      display: block;
+    }
+
+    .status.error {
+      color: var(--danger);
+      border-color: var(--danger);
+    }
+
+    .status.success {
+      color: var(--success);
+    }
+
+    .language-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .language-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+
+    .language-title {
+      color: var(--gold);
+      font-family: "Poppins", sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      padding-bottom: 12px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hadith-text {
+      color: var(--text);
+      font-size: 15px;
+      line-height: 2;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .hadith-text.arabic {
+      font-family: "Amiri", serif;
+      font-size: 25px;
+      line-height: 2.1;
+      text-align: right;
+      direction: rtl;
+    }
+
+    .hadith-text.urdu {
+      font-family: "Noto Nastaliq Urdu", serif;
+      font-size: 20px;
+      line-height: 2.5;
+      text-align: right;
+      direction: rtl;
+    }
+
+    .source-note {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 15px;
+    }
+
+    .reader-navigation {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .empty-state {
+      display: none;
+      color: var(--muted);
+      text-align: center;
+      padding: 30px;
+      grid-column: 1 / -1;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 25px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 760px) {
+      .navbar {
+        padding: 14px 0;
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .nav-links {
+        order: 3;
+        width: 100%;
+        gap: 15px;
+      }
+
+      .collection-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .reader-controls {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .reader-controls .field {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .collection-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .reader-controls {
+        grid-template-columns: 1fr;
+      }
+
+      .reader-controls .field {
+        grid-column: auto;
+      }
+
+      .reader-controls button {
+        width: 100%;
+      }
+
+      .hero {
+        padding-top: 40px;
+      }
+
+      .language-card {
+        padding: 17px;
+      }
+
+      .hadith-text.arabic {
+        font-size: 23px;
+      }
+    }
+
+    /* HADITH MOBILE HERO */
+
+    @media (max-width: 768px) {
+      .hero {
+        display: block !important;
+        width: 100% !important;
+        min-height: auto !important;
+        padding: 42px 20px 36px !important;
+        text-align: center !important;
+        box-sizing: border-box !important;
+      }
+
+      .hero .eyebrow {
+        display: block !important;
+        margin-bottom: 12px !important;
+        text-align: center !important;
+      }
+
+      .hero h1 {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 auto 16px !important;
+        font-size: 32px !important;
+        line-height: 1.15 !important;
+        text-align: center !important;
+      }
+
+      .hero h1 .gold-text {
+        display: inline !important;
+      }
+
+      .hero p {
+        display: block !important;
+        width: 100% !important;
+        max-width: 520px !important;
+        margin: 0 auto 24px !important;
+        font-size: 14px !important;
+        line-height: 1.7 !important;
+        text-align: center !important;
+      }
+
+      .hero .search-wrap {
+        display: block !important;
+        width: 100% !important;
+        max-width: 520px !important;
+        margin: 0 auto !important;
+      }
+
+      .hero .search-input {
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+    }
+
+    /* EXACT HOME PAGE NAVIGATION ICON SIZING */
+
+    .lux-nav .nav-link svg,
+    .lux-bottom-nav .bottom-link svg {
+      width: 23px;
+      height: 23px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    .lux-nav .home-logo svg,
+    .lux-bottom-nav .home-logo svg {
+      width: 29px;
+      height: 29px;
+    }
+
+    @media (max-width: 768px) {
+      .lux-bottom-nav .bottom-link .nav-label {
+        display: none !important;
+      }
+
+      .lux-bottom-nav .bottom-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 0;
+      }
+
+      .lux-bottom-nav .bottom-link svg {
+        display: block;
+        width: 23px;
+        height: 23px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+
+      <a href="../index.html" class="brand">
+        ☪ Islamic <span>Knowledge</span>
+      </a>
+
+      <!-- SETTINGS BUTTON: EXACT HOME PAGE DESIGN -->
+      <a
+        href="settings.html"
+        class="theme-toggle settings-icon"
+        id="settingsButton"
+        aria-label="Open Settings"
+        title="Settings">
+
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6Z"/>
+          <path d="M19.4 15a7.8 7.8 0 0 0 0-2l1.5-1.2-1.5-2.6-1.8.7a7.8 7.8 0 0 0-1.7-1L15.6 7h-3.2l-.3 1.9a7.8 7.8 0 0 0-1.7 1l-1.8-.7-1.5 2.6L8.6 13a7.8 7.8 0 0 0 0 2l-1.5 1.2 1.5 2.6 1.8-.7a7.8 7.8 0 0 0 1.7 1l.3 1.9h3.2l.3-1.9a7.8 7.8 0 0 0 1.7-1l1.8.7 1.5-2.6L19.4 15Z"/>
+        </svg>
+
+      </a>
+
+    </div>
+  </header>
+
+  <!-- DESKTOP NAVIGATION -->
+  <nav class="lux-nav" aria-label="Main navigation">
+    <div class="lux-nav-inner">
+
+      <a href="quran.html" class="nav-link" aria-label="Quran">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 7v14M12 7C9 4 5 4 2 5v14c4-1 7-1 10 2M12 7c3-3 7-3 10-2v14c-4-1-7-1-10 2"/>
+        </svg>
+        <span class="nav-label">Quran</span>
+      </a>
+
+      <a href="hadith.html" class="nav-link active"
+        aria-current="page" aria-label="Hadith">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 4h12a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3z"/>
+          <path d="M4 17a3 3 0 0 1 3-3h12M8 8h7M8 11h7"/>
+        </svg>
+        <span class="nav-label">Hadith</span>
+      </a>
+
+      <a href="topics.html" class="nav-link" aria-label="Topic">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 5h16M4 12h16M4 19h16"/>
+          <circle cx="7" cy="5" r="1"/>
+          <circle cx="7" cy="12" r="1"/>
+          <circle cx="7" cy="19" r="1"/>
+        </svg>
+        <span class="nav-label">Topic</span>
+      </a>
+
+      <a href="../index.html" class="nav-link home-logo"
+        aria-label="Home" title="Home">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m3 10 9-7 9 7"/>
+          <path d="M5 9v12h14V9M9 21v-7h6v7"/>
+        </svg>
+      </a>
+
+      <a href="calendar.html" class="nav-link" aria-label="Calendar">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="16" rx="2"/>
+          <path d="M7 3v4M17 3v4M3 10h18M8 14h2M14 14h2M8 17h2"/>
+        </svg>
+        <span class="nav-label">Calendar</span>
+      </a>
+
+      <a href="stories.html" class="nav-link" aria-label="Stories">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 3h12v18l-6-4-6 4z"/>
+          <path d="M9 8h6M9 11h6"/>
+        </svg>
+        <span class="nav-label">Stories</span>
+      </a>
+
+      <a href="qibla.html" class="nav-link" aria-label="Qibla">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="m15.5 8.5-2.2 5.2-5.2 2.2 2.2-5.2z"/>
+          <circle cx="12" cy="12" r="1"/>
+        </svg>
+        <span class="nav-label">Qibla</span>
+      </a>
+
+    </div>
+  </nav>
+
+  <!-- MOBILE NAVIGATION: SEVEN ICONS ONLY -->
+  <nav class="lux-bottom-nav" aria-label="Mobile navigation">
+
+    <a href="quran.html" class="bottom-link"
+      aria-label="Quran" title="Quran">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 7v14M12 7C9 4 5 4 2 5v14c4-1 7-1 10 2M12 7c3-3 7-3 10-2v14c-4-1-7-1-10 2"/>
+      </svg>
+    </a>
+
+    <a href="hadith.html" class="bottom-link active"
+      aria-current="page" aria-label="Hadith" title="Hadith">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 4h12a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3z"/>
+        <path d="M4 17a3 3 0 0 1 3-3h12M8 8h7M8 11h7"/>
+      </svg>
+    </a>
+
+    <a href="topics.html" class="bottom-link"
+      aria-label="Topic" title="Topic">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 5h16M4 12h16M4 19h16"/>
+        <circle cx="7" cy="5" r="1"/>
+        <circle cx="7" cy="12" r="1"/>
+        <circle cx="7" cy="19" r="1"/>
+      </svg>
+    </a>
+
+    <a href="../index.html" class="bottom-link home-logo"
+      aria-label="Home" title="Home">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="m3 10 9-7 9 7"/>
+        <path d="M5 9v12h14V9M9 21v-7h6v7"/>
+      </svg>
+    </a>
+
+    <a href="calendar.html" class="bottom-link"
+      aria-label="Calendar" title="Calendar">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="3" y="5" width="18" height="16" rx="2"/>
+        <path d="M7 3v4M17 3v4M3 10h18M8 14h2M14 14h2M8 17h2"/>
+      </svg>
+    </a>
+
+    <a href="stories.html" class="bottom-link"
+      aria-label="Stories" title="Stories">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 3h12v18l-6-4-6 4z"/>
+        <path d="M9 8h6M9 11h6"/>
+      </svg>
+    </a>
+
+    <a href="qibla.html" class="bottom-link"
+      aria-label="Qibla" title="Qibla">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="m15.5 8.5-2.2 5.2-5.2 2.2 2.2-5.2z"/>
+        <circle cx="12" cy="12" r="1"/>
+      </svg>
+    </a>
+
+  </nav>
+
+  <main class="container">
+
+    <section class="hero">
+      <div class="eyebrow">
+        The Prophetic Traditions
+      </div>
+
+      <h1>
+        Explore <span class="gold-text">Hadith</span>
+      </h1>
+
+      <p>
+        Discover authentic Hadith from the six major collections
+        in Arabic, Urdu and English. Select a collection and
+        enter a Hadith number to begin reading.
+      </p>
+
+      <div class="search-wrap">
+        <input
+          type="search"
+          id="collectionSearch"
+          class="search-input"
+          placeholder="Search Hadith collections..."
+          aria-label="Search Hadith collections"
+        >
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>Hadith Collections</h2>
+        <p>Six major collections</p>
+      </div>
+
+      <div class="collection-grid" id="collectionGrid">
+
+        <button class="collection-card" data-collection="bukhari">
+          <div class="collection-icon">☪</div>
+          <h3>Sahih al-Bukhari</h3>
+          <p>Authentic Hadith collection</p>
+        </button>
+
+        <button class="collection-card" data-collection="muslim">
+          <div class="collection-icon">☪</div>
+          <h3>Sahih Muslim</h3>
+          <p>Authentic Hadith collection</p>
+        </button>
+
+        <button class="collection-card" data-collection="abudawud">
+          <div class="collection-icon">☪</div>
+          <h3>Sunan Abu Dawud</h3>
+          <p>Hadith collection</p>
+        </button>
+
+        <button class="collection-card" data-collection="tirmidhi">
+          <div class="collection-icon">☪</div>
+          <h3>Jami at-Tirmidhi</h3>
+          <p>Hadith collection</p>
+        </button>
+
+        <button class="collection-card" data-collection="nasai">
+          <div class="collection-icon">☪</div>
+          <h3>Sunan an-Nasa'i</h3>
+          <p>Hadith collection</p>
+        </button>
+
+        <button class="collection-card" data-collection="ibnmajah">
+          <div class="collection-icon">☪</div>
+          <h3>Sunan Ibn Majah</h3>
+          <p>Hadith collection</p>
+        </button>
+
+        <div class="empty-state" id="emptyCollections">
+          No matching collection found.
+        </div>
+
+      </div>
+    </section>
+
+    <section class="reader" id="reader">
+
+      <div class="reader-header">
+        <h2 id="selectedCollectionTitle">Hadith Reader</h2>
+        <button class="back-btn" id="backBtn">← Collections</button>
+      </div>
+
+      <div class="reader-controls">
+
+        <div class="field" id="manualNumberField">
+          <label for="hadithNumber">Hadith Number</label>
+          <input
+            type="number"
+            id="hadithNumber"
+            class="number-input"
+            min="1"
+            value="1"
+            placeholder="Enter Hadith number"
+          >
+        </div>
+
+        <div class="field" id="availableNumberField" hidden>
+          <label for="availableHadithSelect">Available Hadiths (all 3 languages)</label>
+          <select id="availableHadithSelect" class="number-input">
+            <option value="">Finding available Hadiths...</option>
+          </select>
+        </div>
+
+        <button class="action-btn secondary" id="previousBtn">
+          ← Previous
+        </button>
+
+        <button class="action-btn" id="loadBtn">
+          Load Hadith
+        </button>
+
+      </div>
+
+      <div class="status" id="statusBox" role="status" aria-live="polite"></div>
+
+      <div class="language-grid">
+
+        <article class="language-card">
+          <div class="language-title">Arabic — العربية</div>
+          <div class="hadith-text arabic" id="arabicText" lang="ar" dir="rtl">
+            Select a collection and load a Hadith.
+          </div>
+        </article>
+
+        <article class="language-card">
+          <div class="language-title">Urdu — اردو</div>
+          <div class="hadith-text urdu" id="urduText" lang="ur" dir="rtl">
+            حدیث پڑھنے کے لیے مجموعہ منتخب کریں۔
+          </div>
+        </article>
+
+        <article class="language-card">
+          <div class="language-title">English</div>
+          <div class="hadith-text" id="englishText" lang="en">
+            Select a collection and load a Hadith.
+          </div>
+        </article>
+
+      </div>
+
+      <div class="reader-navigation">
+        <button class="action-btn secondary" id="previousBottomBtn">
+          ← Previous Hadith
+        </button>
+
+        <button class="action-btn secondary" id="nextBtn">
+          Next Hadith →
+        </button>
+      </div>
+
+      <p class="source-note">
+        Source: Hadith API by fawazahmed0. Sahih Muslim's selector shows
+        only original Hadith numbers with text available in all three languages.
+      </p>
+
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      Islamic Knowledge — Read, reflect and seek knowledge.
+    </div>
+  </footer>
+
+  <script>
+    "use strict";
+
+    // API CONFIGURATION
+    const API_BASES = [
+      "https://raw.githubusercontent.com/fawazahmed0/hadith-api/1/editions/",
+      "https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/"
+    ];
+
+    const COLLECTIONS = {
+      bukhari: { name: "Sahih al-Bukhari", id: "bukhari" },
+      muslim: { name: "Sahih Muslim", id: "muslim" },
+      abudawud: { name: "Sunan Abu Dawud", id: "abudawud" },
+      tirmidhi: { name: "Jami at-Tirmidhi", id: "tirmidhi" },
+      nasai: { name: "Sunan an-Nasa'i", id: "nasai" },
+      ibnmajah: { name: "Sunan Ibn Majah", id: "ibnmajah" }
+    };
+
+    const LANGUAGES = [
+      {
+        key: "arabic",
+        editionPrefix: "ara",
+        elementId: "arabicText",
+        name: "Arabic"
+      },
+      {
+        key: "urdu",
+        editionPrefix: "urd",
+        elementId: "urduText",
+        name: "Urdu"
+      },
+      {
+        key: "english",
+        editionPrefix: "eng",
+        elementId: "englishText",
+        name: "English"
+      }
+    ];
+
+    const editionCache = new Map();
+
+    let selectedCollection = null;
+    let currentRequestId = 0;
+    let availableMuslimNumbers = [];
+
+    const collectionGrid = document.getElementById("collectionGrid");
+    const collectionSearch = document.getElementById("collectionSearch");
+    const reader = document.getElementById("reader");
+    const selectedCollectionTitle = document.getElementById("selectedCollectionTitle");
+    const hadithNumberInput = document.getElementById("hadithNumber");
+    const availableHadithSelect = document.getElementById("availableHadithSelect");
+    const manualNumberField = document.getElementById("manualNumberField");
+    const availableNumberField = document.getElementById("availableNumberField");
+    const statusBox = document.getElementById("statusBox");
+
+    const loadBtn = document.getElementById("loadBtn");
+    const previousBtn = document.getElementById("previousBtn");
+    const previousBottomBtn = document.getElementById("previousBottomBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const backBtn = document.getElementById("backBtn");
+
+    // STATUS
+    function showStatus(message, type = "") {
+      statusBox.textContent = message;
+      statusBox.className = "status visible";
+
+      if (type) statusBox.classList.add(type);
+    }
+
+    function hideStatus() {
+      statusBox.textContent = "";
+      statusBox.className = "status";
+    }
+
+    function setLoading(isLoading) {
+      loadBtn.disabled = isLoading;
+      previousBtn.disabled = isLoading;
+      previousBottomBtn.disabled = isLoading;
+      nextBtn.disabled = isLoading;
+
+      loadBtn.textContent = isLoading ? "Loading..." : "Load Hadith";
+    }
+
+    function clearLanguageCards(message = "Loading...") {
+      LANGUAGES.forEach(language => {
+        document.getElementById(language.elementId).textContent = message;
+      });
+    }
+
+    // FETCH COMPLETE EDITION
+    async function fetchEdition(edition) {
+      if (editionCache.has(edition)) {
+        return editionCache.get(edition);
+      }
+
+      const requestPromise = (async () => {
+        let lastError = null;
+
+        for (const base of API_BASES) {
+          try {
+            const response = await fetch(`${base}${edition}.json`, {
+              method: "GET",
+              headers: { "Accept": "application/json" },
+              cache: "default"
+            });
+
+            if (!response.ok) {
+              throw new Error(`HTTP ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            if (!data || !Array.isArray(data.hadiths)) {
+              throw new Error("Unexpected edition response format.");
+            }
+
+            return data;
+
+          } catch (error) {
+            lastError = error;
+          }
+        }
+
+        throw lastError || new Error("Unable to retrieve this edition.");
+      })();
+
+      editionCache.set(edition, requestPromise);
+
+      try {
+        return await requestPromise;
+      } catch (error) {
+        editionCache.delete(edition);
+        throw error;
+      }
+    }
+
+    // RECORD HELPERS
+    function getRecordNumber(record) {
+      const possibleNumbers = [
+        record.hadithnumber,
+        record.hadithNumber,
+        record.hadith_number,
+        record.number
+      ];
+
+      for (const value of possibleNumbers) {
+        const number = Number(value);
+
+        if (Number.isInteger(number) && number > 0) {
+          return number;
+        }
+      }
+
+      return null;
+    }
+
+    function getRecordText(record) {
+      return typeof record.text === "string" ? record.text.trim() : "";
+    }
+
+    function makeRecordMap(editionData) {
+      const map = new Map();
+
+      editionData.hadiths.forEach(record => {
+        const number = getRecordNumber(record);
+
+        if (number !== null) {
+          map.set(number, record);
+        }
+      });
+
+      return map;
+    }
+
+    function findHadithRecord(editionData, requestedNumber) {
+      if (!editionData || !Array.isArray(editionData.hadiths)) {
+        return null;
+      }
+
+      return editionData.hadiths.find(record =>
+        getRecordNumber(record) === Number(requestedNumber)
+      ) || null;
+    }
+
+    // SAHIH MUSLIM AVAILABLE NUMBERS
+    async function buildMuslimAvailableList(collectionToken) {
+      availableHadithSelect.innerHTML =
+        '<option value="">Checking all three languages...</option>';
+
+      availableHadithSelect.disabled = true;
+
+      setLoading(true);
+
+      showStatus(
+        "Checking Sahih Muslim editions. Please wait..."
+      );
+
+      try {
+        const editions = await Promise.all(
+          LANGUAGES.map(language =>
+            fetchEdition(`${language.editionPrefix}-muslim`)
+          )
+        );
+
+        if (collectionToken !== currentRequestId) return;
+
+        const arabicMap = makeRecordMap(editions[0]);
+        const urduMap = makeRecordMap(editions[1]);
+        const englishMap = makeRecordMap(editions[2]);
+
+        availableMuslimNumbers = [];
+
+        arabicMap.forEach((arabicRecord, number) => {
+          const urduRecord = urduMap.get(number);
+          const englishRecord = englishMap.get(number);
+
+          if (
+            getRecordText(arabicRecord) &&
+            urduRecord && getRecordText(urduRecord) &&
+            englishRecord && getRecordText(englishRecord)
+          ) {
+            availableMuslimNumbers.push(number);
+          }
+        });
+
+        availableMuslimNumbers.sort((a, b) => a - b);
+
+        if (collectionToken !== currentRequestId) return;
+
+        availableHadithSelect.innerHTML = "";
+
+        if (availableMuslimNumbers.length === 0) {
+          availableHadithSelect.innerHTML =
+            '<option value="">No complete Hadiths found</option>';
+
+          showStatus(
+            "No Hadiths with all three language texts were found.",
+            "error"
+          );
+
+          return;
+        }
+
+        availableMuslimNumbers.forEach(number => {
+          const option = document.createElement("option");
+          option.value = String(number);
+          option.textContent = `Hadith ${number}`;
+          availableHadithSelect.appendChild(option);
+        });
+
+        availableHadithSelect.disabled = false;
+
+        availableHadithSelect.value =
+          String(availableMuslimNumbers[0]);
+
+        showStatus(
+          `${availableMuslimNumbers.length} Sahih Muslim Hadiths are available in all three languages.`,
+          "success"
+        );
+
+        await loadHadith();
+
+      } catch (error) {
+        if (collectionToken !== currentRequestId) return;
+
+        console.error("Sahih Muslim availability error:", error);
+
+        availableHadithSelect.innerHTML =
+          '<option value="">Could not check available Hadiths</option>';
+
+        showStatus(
+          "Could not retrieve the Sahih Muslim editions. Check your internet connection and try again.",
+          "error"
+        );
+
+      } finally {
+        if (collectionToken === currentRequestId) {
+          setLoading(false);
+        }
+      }
+    }
+
+    // LOAD ONE LANGUAGE
+    async function loadLanguage(collectionId, number, language) {
+      const edition = `${language.editionPrefix}-${collectionId}`;
+
+      const editionData = await fetchEdition(edition);
+      const record = findHadithRecord(editionData, number);
+
+      if (!record || !getRecordText(record)) {
+        throw new Error(
+          `${language.name} text is unavailable for Hadith ${number}.`
+        );
+      }
+
+      return getRecordText(record);
+    }
+
+    // LOAD HADITH
+    async function loadHadith() {
+      if (!selectedCollection) return;
+
+      let number;
+
+      if (selectedCollection.id === "muslim") {
+        number = Number(availableHadithSelect.value);
+
+        if (
+          !Number.isInteger(number) ||
+          !availableMuslimNumbers.includes(number)
+        ) {
+          return;
+        }
+
+      } else {
+        number = Number(hadithNumberInput.value);
+
+        if (!Number.isInteger(number) || number < 1) {
+          showStatus("Please enter a valid Hadith number.", "error");
+          return;
+        }
+      }
+
+      const requestId = ++currentRequestId;
+      const collectionId = selectedCollection.id;
+      const collectionName = selectedCollection.name;
+
+      setLoading(true);
+      hideStatus();
+      clearLanguageCards("Loading from source edition...");
+
+      showStatus(`Loading Hadith ${number} from ${collectionName}...`);
+
+      try {
+        const results = await Promise.allSettled(
+          LANGUAGES.map(language =>
+            loadLanguage(collectionId, number, language)
+          )
+        );
+
+        if (requestId !== currentRequestId) return;
+
+        let loadedCount = 0;
+
+        results.forEach((result, index) => {
+          const language = LANGUAGES[index];
+          const element = document.getElementById(language.elementId);
+
+          if (result.status === "fulfilled") {
+            element.textContent = result.value;
+            loadedCount++;
+
+          } else {
+            element.textContent = "Text unavailable.";
+
+            console.error(
+              `${language.name} edition error:`,
+              result.reason
+            );
+          }
+        });
+
+        if (loadedCount === 3) {
+          showStatus(
+            `Hadith ${number} loaded successfully in all three languages.`,
+            "success"
+          );
+
+        } else {
+          showStatus(
+            `Hadith ${number} could not be loaded completely. Some source text is unavailable.`,
+            "error"
+          );
+        }
+
+      } catch (error) {
+        if (requestId === currentRequestId) {
+          console.error("Hadith loading error:", error);
+          showStatus("Unable to load this Hadith.", "error");
+        }
+
+      } finally {
+        if (requestId === currentRequestId) {
+          setLoading(false);
+        }
+      }
+    }
+
+    // SELECT COLLECTION
+    async function selectCollection(collectionId) {
+      const collection = COLLECTIONS[collectionId];
+
+      if (!collection) return;
+
+      const collectionToken = ++currentRequestId;
+
+      selectedCollection = collection;
+
+      setLoading(false);
+
+      document.querySelectorAll(".collection-card").forEach(card => {
+        card.classList.toggle(
+          "selected",
+          card.dataset.collection === collectionId
+        );
+      });
+
+      selectedCollectionTitle.textContent = collection.name;
+
+      reader.classList.add("visible");
+
+      reader.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+      clearLanguageCards("Preparing Hadith reader...");
+
+      if (collectionId === "muslim") {
+        manualNumberField.hidden = true;
+        availableNumberField.hidden = false;
+
+        availableMuslimNumbers = [];
+
+        await buildMuslimAvailableList(collectionToken);
+
+      } else {
+        manualNumberField.hidden = false;
+        availableNumberField.hidden = true;
+
+        hadithNumberInput.value = 1;
+
+        hideStatus();
+        await loadHadith();
+      }
+    }
+
+    // COLLECTION SEARCH
+    collectionSearch.addEventListener("input", () => {
+      const query = collectionSearch.value.trim().toLowerCase();
+      const cards = document.querySelectorAll(".collection-card");
+
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const matches = card.textContent.toLowerCase().includes(query);
+
+        card.style.display = matches ? "" : "none";
+
+        if (matches) visibleCount++;
+      });
+
+      document.getElementById("emptyCollections").style.display =
+        visibleCount === 0 ? "block" : "none";
+    });
+
+    // COLLECTION BUTTONS
+    document.querySelectorAll(".collection-card").forEach(card => {
+      card.addEventListener("click", () => {
+        selectCollection(card.dataset.collection);
+      });
+    });
+
+    // MANUAL LOAD BUTTON
+    loadBtn.addEventListener("click", loadHadith);
+
+    // AUTOMATIC LOAD WHEN NUMBER IS CHANGED
+    hadithNumberInput.addEventListener("change", () => {
+      if (selectedCollection && selectedCollection.id !== "muslim") {
+        loadHadith();
+      }
+    });
+
+    // LOAD WHEN ENTER IS PRESSED
+    hadithNumberInput.addEventListener("keydown", event => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        loadHadith();
+      }
+    });
+
+    // AUTOMATIC LOAD WHEN MUSLIM NUMBER IS SELECTED
+    availableHadithSelect.addEventListener("change", () => {
+      if (selectedCollection?.id === "muslim") {
+        loadHadith();
+      }
+    });
+
+    // PREVIOUS AND NEXT
+    function moveHadith(direction) {
+      if (!selectedCollection) return;
+
+      if (selectedCollection.id === "muslim") {
+        const currentIndex = availableMuslimNumbers.indexOf(
+          Number(availableHadithSelect.value)
+        );
+
+        const nextIndex = currentIndex + direction;
+
+        if (
+          nextIndex >= 0 &&
+          nextIndex < availableMuslimNumbers.length
+        ) {
+          availableHadithSelect.value =
+            String(availableMuslimNumbers[nextIndex]);
+
+          loadHadith();
+        }
+
+        return;
+      }
+
+      const current = Number(hadithNumberInput.value);
+      const next = current + direction;
+
+      if (next >= 1) {
+        hadithNumberInput.value = next;
+        loadHadith();
+      }
+    }
+
+    previousBtn.addEventListener("click", () => moveHadith(-1));
+    previousBottomBtn.addEventListener("click", () => moveHadith(-1));
+    nextBtn.addEventListener("click", () => moveHadith(1));
+
+    // BACK TO COLLECTIONS
+    backBtn.addEventListener("click", () => {
+      currentRequestId++;
+
+      reader.classList.remove("visible");
+
+      document.querySelectorAll(".collection-card").forEach(card => {
+        card.classList.remove("selected");
+      });
+
+      selectedCollection = null;
+      availableMuslimNumbers = [];
+
+      setLoading(false);
+      hideStatus();
+
+      collectionGrid.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+
+    // INITIALIZE
+    console.log("Hadith page initialized: 6 collections loaded.");
+  </script>
+
+</body>
+</html>

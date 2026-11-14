@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#F8F7F3">
+    <meta name="description" content="Explore Islamic stories, the Prophets, Companions and Islamic history.">
+
+    <title>Islamic Stories | Islamic Knowledge</title>
+
+    <!-- GLOBAL THEME CONTROLLER -->
+    <script src="../js/theme.js"></script>
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+
+    <style>
+        /* STORIES PAGE */
+
+        .stories-page {
+            width: min(1120px, 92%);
+            margin: auto;
+            padding-top: 35px;
+        }
+
+        .stories-heading {
+            text-align: center;
+            padding: 35px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            margin-bottom: 28px;
+        }
+
+        .stories-heading .arabic-title {
+            font-family: 'Amiri', serif;
+            font-size: 40px;
+            color: var(--primary);
+        }
+
+        .stories-heading h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 25px;
+            margin-top: 8px;
+        }
+
+        .stories-heading p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        .stories-search {
+            margin-bottom: 20px;
+        }
+
+        .stories-search input {
+            width: 100%;
+            padding: 15px 18px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface);
+            color: var(--text);
+            font-size: 14px;
+            outline: none;
+        }
+
+        .stories-search input:focus {
+            border-color: var(--primary);
+        }
+
+        .story-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .filter-button {
+            padding: 9px 16px;
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            background: var(--surface);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.2s;
+        }
+
+        .filter-button:hover,
+        .filter-button.active {
+            background: var(--primary);
+            color: #10251D;
+            border-color: var(--primary);
+        }
+
+        .stories-section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .stories-section-title h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+        }
+
+        .story-count {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .story-card {
+            width: 100%;
+            text-align: left;
+            padding: 21px;
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .story-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            background: var(--surface-hover);
+        }
+
+        .story-card:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 3px;
+        }
+
+        .story-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .story-category {
+            display: inline-block;
+            color: var(--primary);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            margin-bottom: 8px;
+        }
+
+        .story-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .story-card p {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .story-card .read-more {
+            display: block;
+            color: var(--primary);
+            font-size: 12px;
+            margin-top: 15px;
+        }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            color: var(--muted);
+            background: var(--surface);
+            border-radius: 12px;
+            line-height: 1.8;
+        }
+
+        .story-reader {
+            display: none;
+            margin-top: 25px;
+            padding: 25px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .reader-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+
+        .reader-header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+        }
+
+        .back-button {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--primary);
+            border-radius: 8px;
+            padding: 9px 13px;
+            cursor: pointer;
+        }
+
+        .story-detail {
+            padding: 25px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .story-detail-icon {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .story-detail h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 21px;
+            margin-bottom: 12px;
+        }
+
+        .story-detail p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .story-content-placeholder {
+            margin-top: 20px;
+            padding: 22px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--muted);
+            text-align: left;
+            font-size: 14px;
+            line-height: 1.9;
+            white-space: pre-wrap;
+        }
+
+        .story-image {
+            display: block;
+            width: 100%;
+            max-height: 350px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        /* ==============================
+           HOME-MATCHED SETTINGS ICON
+        ============================== */
+
+        .settings-icon {
+            width: 42px;
+            height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: #D4AF37;
+            background: #0B0B0B;
+            border: 1px solid rgba(212, 175, 55, .55);
+            border-radius: 50%;
+            text-decoration: none;
+            transition:
+                transform .3s ease,
+                box-shadow .3s ease,
+                border-color .3s ease;
+        }
+
+        .settings-icon svg {
+            width: 23px;
+            height: 23px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform .4s ease;
+        }
+
+        .settings-icon:hover {
+            border-color: #FFD700;
+            box-shadow: 0 0 12px rgba(212, 175, 55, .35);
+            transform: scale(1.06);
+        }
+
+        .settings-icon:hover svg {
+            transform: rotate(45deg);
+        }
+
+        .settings-icon:focus-visible {
+            outline: 2px solid #D4AF37;
+            outline-offset: 4px;
+        }
+
+        /* ==============================
+           NAVIGATION ICONS
+        ============================== */
+
+        .lux-nav .nav-link svg,
+        .lux-bottom-nav .bottom-link svg {
+            width: 23px;
+            height: 23px;
+            flex-shrink: 0;
+        }
+
+        .lux-nav .home-logo svg,
+        .lux-bottom-nav .home-logo svg {
+            width: 29px;
+            height: 29px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 768px) {
+
+            .lux-bottom-nav .bottom-link .nav-label {
+                display: none !important;
+            }
+
+            .lux-bottom-nav .bottom-link {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 0;
+            }
+
+            .lux-bottom-nav .bottom-link svg {
+                display: block;
+                width: 23px;
+                height: 23px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .stories-page {
+                padding-top: 20px;
+            }
+
+            .stories-heading {
+                padding: 25px 12px;
+            }
+
+            .stories-heading .arabic-title {
+                font-size: 34px;
+            }
+
+            .stories-heading h1 {
+                font-size: 21px;
+            }
+
+            .stories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .story-filters {
+                gap: 7px;
+            }
+
+            .filter-button {
+                padding: 8px 12px;
+            }
+
+            .story-reader {
+                padding: 17px;
+            }
+
+            .reader-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .settings-icon,
+            .settings-icon svg {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="header-inner">
+
+            <a href="../index.html" class="brand">
+                <span class="brand-icon">☪</span>
+                <span>Islamic <strong>Knowledge</strong></span>
+            </a>
+
+            <!-- EXACT HOME SETTINGS ICON -->
+            <a
+                href="settings.html"
+                class="theme-toggle settings-icon"
+                id="settingsButton"
+                aria-label="Open Settings"
+                title="Settings"
+            >
+
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6Z"/>
+                    <path d="M19.4 15a7.8 7.8 0 0 0 0-2l1.5-1.2-1.5-2.6-1.8.7a7.8 7.8 0 0 0-1.7-1L15.6 7h-3.2l-.3 1.9a7.8 7.8 0 0 0-1.7 1l-1.8-.7-1.5 2.6L8.6 13a7.8 7.8 0 0 0 0 2l-1.5 1.2 1.5 2.6 1.8-.7a7.8 7.8 0 0 0 1.7 1l.3 1.9h3.2l.3-1.9a7.8 7.8 0 0 0 1.7-1l1.8.7 1.5-2.6L19.4 15Z"/>
+                </svg>
+
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- DESKTOP NAVIGATION -->
+    <nav class="lux-nav" aria-label="Main navigation">
+
+        <div class="lux-nav-inner">
+
+            <!-- QURAN -->
+            <a
+                href="quran.html"
+                class="nav-link"
+                data-page="quran"
+                aria-label="Quran"
+            >
+
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 7v14M12 7C9 4 5 4 2 5v14c4-1 7-1 10 2M12 7c3-3 7-3 10-2v14c-4-1-7-1-10 2"/>
+                </svg>
+
+                <span class="nav-label">Quran</span>
+
+            </a>
+
+
+            <!-- HADITH -->
+            <a
+                href="hadith.html"
+                class="nav-link"
+                data-page="hadith"
+                aria-label="Hadith"
+            >
+
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 4h12a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3z"/>
+                    <path d="M4 17a3 3 0 0 1 3-3h12M8 8h7M8 11h7"/>
+                </svg>
+
+                <span class="nav-label">Hadith</span>
+
+            </a>
+
+
+            <!-- TOPIC -->
+            <a
+                href="topics.html"
+                class="nav-link"
+                data-page="topics"
+                aria-label="Topic"
+            >
+
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 5h16M4 12h16M4 19h16"/>
+                    <circle cx="7" cy="5" r="1"/>
+                    <circle cx="7" cy="12" r="1"/>
+                    <circle cx="7" cy="19" r="1"/>
+                </svg>
+
+                <span class="nav-label">Topic</span>
+
+            </a>
+
+
+            <!-- HOME -->
+            <a
+                href="../index.html"
+                class="nav-link home-logo"
+                data-page="home"
+                aria-label="Home"
+                title="Home"
+            >
+
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m3 10 9-7 9 7"/>
+                    <path d="M5 9v12h14V9M9 21v-7h6v7"/>
+                </svg>
+
+            </a>
+
+
+            <!-- CALENDAR -->
+            <a
+                href="calendar.html"
+                class="nav-link"
+                data-page="calendar"
+                aria-label="Calendar"
+            >
+
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="5" width="18" height="16" rx="2"/>
+                    <path d="M7 3v4M17 3v4M3 10h18M8 14h2M14 14h2M8 17h2"/>
+                </svg>
+
+                <span class="nav-label">Calendar</span>
+
+            </a>
+
+
+            <!-- STORIES -->
+            <a
+                href="stories.html"
+                class="nav-link active"
+                data-page="stories"
+                aria-current="page"
+                aria-label="Stories"
+            >
+
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M6 3h12v18l-6-4-6 4z"/>
+                    <path d="M9 8h6M9 11h6"/>
+                </svg>
+
+                <span class="nav-label">Stories</span>
+
+            </a>
+
+
+            <!-- QIBLA -->
+            <a
+                href="qibla.html"
+                class="nav-link"
+                data-page="qibla"
+                aria-label="Qibla"
+            >
+
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9"/>
+                    <path d="m15.5 8.5-2.2 5.2-5.2 2.2 2.2-5.2z"/>
+                    <circle cx="12" cy="12" r="1"/>
+                </svg>
+
+                <span class="nav-label">Qibla</span>
+
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="stories-page">
+
+        <section class="stories-heading">
+
+            <div class="arabic-title">قَصَصٌ إِسْلَامِيَّة</div>
+
+            <h1>Islamic Stories</h1>
+
+            <p>
+                Explore stories from Islamic tradition, history and the lives
+                of the Prophets and Companions.
+            </p>
+
+        </section>
+
+
+        <!-- SEARCH -->
+        <div class="stories-search">
+
+            <input
+                type="search"
+                id="storySearch"
+                placeholder="Search Islamic stories..."
+                aria-label="Search Islamic stories"
+            >
+
+        </div>
+
+
+        <!-- FILTERS -->
+        <div class="story-filters" id="storyFilters">
+
+            <button class="filter-button active" data-category="all">
+                All Stories
+            </button>
+
+            <button class="filter-button" data-category="prophets">
+                Prophets
+            </button>
+
+            <button class="filter-button" data-category="companions">
+                Companions
+            </button>
+
+            <button class="filter-button" data-category="history">
+                Islamic History
+            </button>
+
+            <button class="filter-button" data-category="inspiring">
+                Inspiring Stories
+            </button>
+
+            <button class="filter-button" data-category="Battles & Expeditions">
+                Battles & Expeditions
+            </button>
+
+            <button class="filter-button" data-category="Seerah">
+                Seerah
+            </button>
+
+            <button class="filter-button" data-category="Women in Islam">
+                Women in Islam
+            </button>
+
+        </div>
+
+
+        <!-- STORIES LIST -->
+        <section id="storiesSection">
+
+            <div class="stories-section-title">
+
+                <h2>Explore Stories</h2>
+
+                <span class="story-count" id="storyCount">
+                    Loading stories...
+                </span>
+
+            </div>
+
+            <div class="stories-grid" id="storiesGrid"></div>
+
+            <div class="no-results" id="noResults" role="status">
+                Loading stories...
+            </div>
+
+        </section>
+
+
+        <!-- STORY READER -->
+        <section class="story-reader" id="storyReader">
+
+            <div class="reader-header">
+
+                <h2 id="readerTitle">Story</h2>
+
+                <button class="back-button" id="backButton">
+                    ← Back to Stories
+                </button>
+
+            </div>
+
+            <div id="storyContent"></div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="container">
+
+            <h3>Islamic Knowledge</h3>
+
+            <p>Read, reflect and seek knowledge.</p>
+
+            <p class="copyright">
+                © 2026 Islamic Knowledge. All rights reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- MOBILE NAVIGATION: EXACT HOME ICONS / ICONS ONLY -->
+    <nav class="lux-bottom-nav" aria-label="Mobile navigation">
+
+        <!-- QURAN -->
+        <a
+            href="quran.html"
+            class="bottom-link"
+            data-page="quran"
+            aria-label="Quran"
+            title="Quran"
+        >
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 7v14M12 7C9 4 5 4 2 5v14c4-1 7-1 10 2M12 7c3-3 7-3 10-2v14c-4-1-7-1-10 2"/>
+            </svg>
+
+        </a>
+
+
+        <!-- HADITH -->
+        <a
+            href="hadith.html"
+            class="bottom-link"
+            data-page="hadith"
+            aria-label="Hadith"
+            title="Hadith"
+        >
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 4h12a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3z"/>
+                <path d="M4 17a3 3 0 0 1 3-3h12M8 8h7M8 11h7"/>
+            </svg>
+
+        </a>
+
+
+        <!-- TOPIC -->
+        <a
+            href="topics.html"
+            class="bottom-link"
+            data-page="topics"
+            aria-label="Topic"
+            title="Topic"
+        >
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 5h16M4 12h16M4 19h16"/>
+                <circle cx="7" cy="5" r="1"/>
+                <circle cx="7" cy="12" r="1"/>
+                <circle cx="7" cy="19" r="1"/>
+            </svg>
+
+        </a>
+
+
+        <!-- HOME -->
+        <a
+            href="../index.html"
+            class="bottom-link home-logo"
+            data-page="home"
+            aria-label="Home"
+            title="Home"
+        >
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m3 10 9-7 9 7"/>
+                <path d="M5 9v12h14V9M9 21v-7h6v7"/>
+            </svg>
+
+        </a>
+
+
+        <!-- CALENDAR -->
+        <a
+            href="calendar.html"
+            class="bottom-link"
+            data-page="calendar"
+            aria-label="Calendar"
+            title="Calendar"
+        >
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="16" rx="2"/>
+                <path d="M7 3v4M17 3v4M3 10h18M8 14h2M14 14h2M8 17h2"/>
+            </svg>
+
+        </a>
+
+
+        <!-- STORIES -->
+        <a
+            href="stories.html"
+            class="bottom-link active"
+            data-page="stories"
+            aria-current="page"
+            aria-label="Stories"
+            title="Stories"
+        >
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 3h12v18l-6-4-6 4z"/>
+                <path d="M9 8h6M9 11h6"/>
+            </svg>
+
+        </a>
+
+
+        <!-- QIBLA -->
+        <a
+            href="qibla.html"
+            class="bottom-link"
+            data-page="qibla"
+            aria-label="Qibla"
+            title="Qibla"
+        >
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="m15.5 8.5-2.2 5.2-5.2 2.2 2.2-5.2z"/>
+                <circle cx="12" cy="12" r="1"/>
+            </svg>
+
+        </a>
+
+    </nav>
+
+
+    <!-- REAL-TIME FIRESTORE STORIES -->
+    <script type="module">
+
+        import { db } from "../js/config.js";
+
+        import {
+            collection,
+            onSnapshot,
+            query,
+            where
+        } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+        const storiesGrid = document.getElementById("storiesGrid");
+        const storySearch = document.getElementById("storySearch");
+        const storyCount = document.getElementById("storyCount");
+        const noResults = document.getElementById("noResults");
+        const storiesSection = document.getElementById("storiesSection");
+        const storyReader = document.getElementById("storyReader");
+        const readerTitle = document.getElementById("readerTitle");
+        const storyContent = document.getElementById("storyContent");
+        const backButton = document.getElementById("backButton");
+        const searchContainer = document.querySelector(".stories-search");
+        const storyFilters = document.getElementById("storyFilters");
+
+        let stories = [];
+        let activeCategory = "all";
+        let selectedStoryId = null;
+
+        const categoryNames = {
+            prophets: "Prophets",
+            companions: "Companions",
+            history: "Islamic History",
+            inspiring: "Inspiring Stories"
+        };
+
+        // Display loading, empty or error message
+        function showMessage(message) {
+
+            storiesGrid.replaceChildren();
+
+            noResults.textContent = message;
+            noResults.style.display = "block";
+
+            storyCount.textContent = "0 Stories";
+
+        }
+
+        // Create a story card safely
+        function createStoryCard(story) {
+
+            const card = document.createElement("button");
+
+            card.type = "button";
+            card.className = "story-card";
+
+            card.setAttribute(
+                "aria-label",
+                `Open ${story.title}`
+            );
+
+            const icon = document.createElement("div");
+            icon.className = "story-icon";
+            icon.textContent = story.icon;
+
+            const category = document.createElement("span");
+            category.className = "story-category";
+            category.textContent = story.categoryName;
+
+            const title = document.createElement("h3");
+            title.textContent = story.title;
+
+            const description = document.createElement("p");
+            description.textContent = story.description;
+
+            const readMore = document.createElement("span");
+            readMore.className = "read-more";
+            readMore.textContent = "Read story →";
+
+            card.appendChild(icon);
+            card.appendChild(category);
+            card.appendChild(title);
+            card.appendChild(description);
+            card.appendChild(readMore);
+
+            card.addEventListener("click", () => {
+                openStory(story);
+            });
+
+            return card;
+
+        }
+
+        // Display filtered stories
+        function displayStories(list) {
+
+            storiesGrid.replaceChildren();
+
+            list.forEach(story => {
+                storiesGrid.appendChild(createStoryCard(story));
+            });
+
+            storyCount.textContent =
+                `${list.length} of ${stories.length} Stories`;
+
+            noResults.style.display =
+                list.length === 0 ? "block" : "none";
+
+            if (list.length === 0) {
+
+                noResults.textContent =
+                    stories.length === 0
+                        ? "No published stories are available yet. Please check again later."
+                        : "No stories found. Try another search or category.";
+
+            }
+
+        }
+
+        // Search and category filtering
+        function filterStories() {
+
+            const searchText = storySearch.value
+                .trim()
+                .toLowerCase();
+
+            const filtered = stories.filter(story => {
+
+                const matchesCategory =
+                    activeCategory === "all" ||
+                    story.category === activeCategory;
+
+                const matchesSearch =
+                    story.title.toLowerCase().includes(searchText) ||
+                    story.description.toLowerCase().includes(searchText) ||
+                    story.categoryName.toLowerCase().includes(searchText);
+
+                return matchesCategory && matchesSearch;
+
+            });
+
+            displayStories(filtered);
+
+        }
+
+        // Open story reader
+        function openStory(story) {
+
+            selectedStoryId = story.id;
+
+            readerTitle.textContent = story.title;
+            storyContent.replaceChildren();
+
+            const details = document.createElement("div");
+            details.className = "story-detail";
+
+            const icon = document.createElement("div");
+            icon.className = "story-detail-icon";
+            icon.textContent = story.icon;
+
+            const category = document.createElement("span");
+            category.className = "story-category";
+            category.textContent = story.categoryName;
+
+            const title = document.createElement("h3");
+            title.textContent = story.title;
+
+            const description = document.createElement("p");
+            description.textContent = story.description;
+
+            details.appendChild(icon);
+            details.appendChild(category);
+            details.appendChild(title);
+            details.appendChild(description);
+
+            storyContent.appendChild(details);
+
+            // Optional story image
+            if (story.imageUrl) {
+
+                try {
+
+                    const imageURL = new URL(story.imageUrl);
+
+                    if (imageURL.protocol === "https:") {
+
+                        const image = document.createElement("img");
+
+                        image.className = "story-image";
+                        image.src = imageURL.href;
+                        image.alt = story.title;
+                        image.loading = "lazy";
+
+                        image.onerror = () => image.remove();
+
+                        storyContent.appendChild(image);
+
+                    }
+
+                } catch (error) {
+
+                    console.warn("Invalid story image URL.");
+
+                }
+
+            }
+
+            // Full story content
+            const article = document.createElement("div");
+
+            article.className = "story-content-placeholder";
+
+            article.textContent = story.content ||
+                "The complete story has not been added yet.";
+
+            storyContent.appendChild(article);
+
+            storiesSection.style.display = "none";
+            searchContainer.style.display = "none";
+            storyFilters.style.display = "none";
+            storyReader.style.display = "block";
+
+            storyReader.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        }
+
+        // Keep an open story synchronized with Firestore
+        function refreshOpenStory() {
+
+            if (!selectedStoryId) return;
+
+            const updatedStory = stories.find(
+                story => story.id === selectedStoryId
+            );
+
+            if (updatedStory) {
+
+                openStory(updatedStory);
+
+            } else {
+
+                selectedStoryId = null;
+
+                storyReader.style.display = "none";
+                storiesSection.style.display = "block";
+                searchContainer.style.display = "block";
+                storyFilters.style.display = "flex";
+
+                storySearch.focus();
+
+                alert(
+                    "This story is no longer published or available."
+                );
+
+            }
+
+        }
+
+        // Back to stories
+        backButton.addEventListener("click", () => {
+
+            selectedStoryId = null;
+
+            storyReader.style.display = "none";
+            storiesSection.style.display = "block";
+            searchContainer.style.display = "block";
+            storyFilters.style.display = "flex";
+
+            storySearch.focus();
+
+            storiesSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        });
+
+        // Category filter buttons
+        storyFilters.addEventListener("click", (event) => {
+
+            const button = event.target.closest(".filter-button");
+
+            if (!button) return;
+
+            activeCategory =
+                button.getAttribute("data-category");
+
+            document.querySelectorAll(".filter-button").forEach(item => {
+                item.classList.remove("active");
+            });
+
+            button.classList.add("active");
+
+            filterStories();
+
+        });
+
+        // Search while typing
+        storySearch.addEventListener("input", filterStories);
+
+        // Listen continuously for published story changes
+        function listenToStories() {
+
+            showMessage("Loading stories...");
+
+            const storiesQuery = query(
+                collection(db, "stories"),
+                where("status", "==", "published")
+            );
+
+            onSnapshot(
+
+                storiesQuery,
+
+                (snapshot) => {
+
+                    stories = snapshot.docs
+                        .map(document => {
+
+                            const data = document.data();
+
+                            const category = (
+                                data.category || "inspiring"
+                            ).toLowerCase();
+
+                            return {
+                                id: document.id,
+                                title: data.title || "",
+                                description: data.description || "",
+                                content: data.content || "",
+                                category,
+                                categoryName:
+                                    data.categoryName ||
+                                    categoryNames[category] ||
+                                    "Islamic Stories",
+                                icon: data.icon || "📖",
+                                imageUrl: data.imageUrl || ""
+                            };
+
+                        })
+                        .filter(story => story.title.trim() !== "");
+
+                    console.log(
+                        `Real-time stories updated: ${stories.length}`
+                    );
+
+                    filterStories();
+                    refreshOpenStory();
+
+                },
+
+                (error) => {
+
+                    console.error(
+                        "Real-time stories error:",
+                        error
+                    );
+
+                    showMessage(
+                        "Unable to load stories. Please check your internet connection and try again."
+                    );
+
+                }
+
+            );
+
+        }
+
+        // Start real-time listener
+        listenToStories();
+
+    </script>
+
+
+    <!-- NAVIGATION SCRIPT -->
+    <script src="../js/navigation.js"></script>
+
+</body>
+
+</html>

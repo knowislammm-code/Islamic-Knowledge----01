@@ -1,0 +1,237 @@
+
+.qibla-page {
+    padding-bottom: 40px;
+}
+
+.qibla-hero {
+    padding-top: 55px;
+    padding-bottom: 25px;
+    text-align: center;
+}
+
+.qibla-hero h1 {
+    margin: 12px 0;
+    font-family: "Poppins", sans-serif;
+}
+
+.qibla-hero p {
+    opacity: 0.75;
+}
+
+.qibla-section {
+    margin-top: 25px;
+}
+
+.qibla-card {
+    max-width: 600px;
+    margin: auto;
+    padding: 30px 22px;
+    text-align: center;
+    background: var(--surface, #ffffff);
+    color: var(--text, #193429);
+    border: 1px solid var(--border, #e6e6df);
+    border-radius: 22px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06);
+}
+
+.qibla-status {
+    margin-bottom: 25px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.8;
+}
+
+.compass-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 25px;
+}
+
+.compass {
+    position: relative;
+    width: min(75vw, 300px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 7px solid #D7B76B;
+    background:
+        repeating-conic-gradient(
+            from 0deg,
+            transparent 0deg 5deg,
+            rgba(215, 183, 107, 0.3) 5deg 6deg
+        ),
+        var(--compass-bg, #f8f7f3);
+    box-shadow:
+        0 0 0 8px rgba(215, 183, 107, 0.12),
+        inset 0 0 25px rgba(0, 0, 0, 0.08);
+}
+
+.compass-inner {
+    position: absolute;
+    inset: 18%;
+    border: 2px solid rgba(215, 183, 107, 0.7);
+    border-radius: 50%;
+}
+
+.compass-mark {
+    position: absolute;
+    z-index: 3;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--text, #193429);
+}
+
+.compass-mark.north {
+    top: 7px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #b68b36;
+}
+
+.compass-mark.south {
+    bottom: 7px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.compass-mark.east {
+    right: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.compass-mark.west {
+    left: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.compass-needle {
+    position: absolute;
+    width: 28px;
+    height: 75%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s ease-out;
+}
+
+.needle-top {
+    width: 0;
+    height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-bottom: 90px solid #c39a48;
+}
+
+.needle-bottom {
+    width: 0;
+    height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-top: 90px solid #193429;
+}
+
+.compass-center {
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    background: #D7B76B;
+    border: 3px solid white;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+}
+
+.kaaba-marker {
+    position: absolute;
+    z-index: 5;
+    top: 17%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 23px;
+}
+
+.qibla-results {
+    margin: 10px 0 25px;
+}
+
+.qibla-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #b68b36;
+}
+
+.qibla-results h2 {
+    font-family: "Poppins", sans-serif;
+    font-size: 42px;
+    margin: 5px 0;
+}
+
+.qibla-results p {
+    margin: 6px 0;
+    opacity: 0.75;
+    font-size: 14px;
+}
+
+.qibla-action,
+.compass-action {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    margin: 12px auto;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.compass-help {
+    max-width: 400px;
+    margin: 20px auto 0;
+    font-size: 12px;
+    line-height: 1.6;
+    opacity: 0.65;
+}
+
+.qibla-note {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 14px;
+    background: var(--surface, #ffffff);
+    border: 1px solid var(--border, #e6e6df);
+}
+
+.qibla-note strong {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.qibla-note p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.7;
+    opacity: 0.75;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+@media (max-width: 600px) {
+    .qibla-hero {
+        padding-top: 35px;
+    }
+
+    .qibla-card {
+        padding: 25px 15px;
+    }
+
+    .qibla-results h2 {
+        font-size: 36px;
+    }
+}

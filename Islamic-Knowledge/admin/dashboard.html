@@ -1,0 +1,1973 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505">
+    <title>Admin Dashboard | Islamic Knowledge</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    
+/* ==========================================
+   ISLAMIC KNOWLEDGE ADMIN
+   PREMIUM BLACK + 24K GOLD DESIGN
+   ADMIN DASHBOARD ONLY
+========================================== */
+
+:root {
+    --black: #050505;
+    --black-soft: #0A0A0A;
+    --panel: #101010;
+    --panel-light: #171717;
+    --gold: #D4AF37;
+    --gold-bright: #FFD700;
+    --gold-light: #F5E6A8;
+    --gold-dark: #8C6B16;
+    --gold-border: rgba(212,175,55,.32);
+    --white: #F8F6EF;
+    --muted: #A5A29A;
+    --danger: #FF7777;
+    --success: #7DDBA0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse at top left, rgba(212,175,55,.07), transparent 35%),
+        radial-gradient(ellipse at bottom right, rgba(212,175,55,.04), transparent 35%),
+        var(--black);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+}
+
+button, input, textarea, select {
+    font: inherit;
+}
+
+button {
+    transition: all .25s ease;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    background: linear-gradient(180deg, #111 0%, #070707 100%);
+    border-right: 1px solid var(--gold-border);
+    padding: 25px 17px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 8px 0 35px rgba(0,0,0,.55);
+    position: relative;
+    z-index: 2;
+}
+
+.brand {
+    padding: 5px 10px 28px;
+    border-bottom: 1px solid var(--gold-border);
+}
+
+.brand h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 19px;
+    color: var(--white);
+    letter-spacing: .3px;
+}
+
+.brand span {
+    background: linear-gradient(120deg, #A77B16, #FFE68A, #D4AF37);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.brand p {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.nav-label {
+    margin: 28px 10px 12px;
+    color: var(--gold-dark);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+}
+
+.nav-link {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    margin-bottom: 7px;
+    color: #BDB8AA;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    background: transparent;
+    text-align: left;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: linear-gradient(110deg, rgba(212,175,55,.16), rgba(212,175,55,.035));
+    color: var(--gold-bright);
+    border-color: var(--gold-border);
+    box-shadow: inset 3px 0 0 var(--gold);
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding-top: 20px;
+}
+
+/* MAIN AREA */
+
+.main {
+    flex: 1;
+    min-width: 0;
+    padding: 32px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 35px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid rgba(212,175,55,.17);
+}
+
+.topbar h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 25px;
+    color: var(--white);
+}
+
+.topbar p {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.admin-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-avatar {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FFE68A, #B8860B, #6E5010);
+    color: #080808;
+    font-weight: 800;
+    box-shadow: 0 0 20px rgba(212,175,55,.25);
+}
+
+.admin-email {
+    max-width: 180px;
+    overflow-wrap: anywhere;
+    color: #E5DDBF;
+    font-size: 12px;
+}
+
+/* HEADINGS */
+
+.section-heading {
+    margin-bottom: 18px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 17px;
+    color: var(--gold-light);
+}
+
+/* STATISTICS */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    gap: 18px;
+    margin-bottom: 35px;
+}
+
+.stat-card {
+    position: relative;
+    overflow: hidden;
+    padding: 24px;
+    background: linear-gradient(145deg, #1B1B1B, #0B0B0B);
+    border: 1px solid var(--gold-border);
+    border-radius: 14px;
+    box-shadow:
+        0 12px 28px rgba(0,0,0,.55),
+        inset 0 1px 0 rgba(255,255,255,.045);
+    transition: transform .25s, box-shadow .25s;
+}
+
+.stat-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold-bright), transparent);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow:
+        0 18px 35px rgba(0,0,0,.7),
+        0 0 18px rgba(212,175,55,.12);
+}
+
+.stat-title {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.stat-number {
+    margin-top: 13px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 30px;
+    background: linear-gradient(120deg, #A77B16, #FFE68A, #D4AF37);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.stat-description {
+    margin-top: 5px;
+    color: #77736A;
+    font-size: 11px;
+}
+
+/* CONTENT PANELS */
+
+.content-panel {
+    padding: 24px;
+    margin-bottom: 25px;
+    background: linear-gradient(145deg, #151515, #0B0B0B);
+    border: 1px solid var(--gold-border);
+    border-radius: 14px;
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,.035);
+}
+
+.content-panel h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    margin-bottom: 12px;
+    color: var(--gold-light);
+}
+
+.content-panel p {
+    color: #C1BDB2;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.quick-actions {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 15px;
+}
+
+.action-card {
+    padding: 20px;
+    background: linear-gradient(145deg, #1B1B1B, #090909);
+    border: 1px solid rgba(212,175,55,.22);
+    border-radius: 11px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+.action-card h4 {
+    color: var(--gold);
+    font-size: 14px;
+    margin-bottom: 7px;
+}
+
+.action-card p {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+/* BUTTONS */
+
+.primary-button {
+    padding: 12px 18px;
+    border: 1px solid #FFE68A;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #FFE68A 0%, #D4AF37 48%, #A77B16 100%);
+    color: #080808;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 5px 16px rgba(212,175,55,.15);
+}
+
+.primary-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(212,175,55,.3);
+    filter: brightness(1.08);
+}
+
+.primary-button:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.secondary-button {
+    padding: 10px 15px;
+    border: 1px solid var(--gold-border);
+    border-radius: 8px;
+    background: #141414;
+    color: var(--gold-light);
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.secondary-button:hover {
+    border-color: var(--gold-bright);
+    background: rgba(212,175,55,.09);
+}
+
+.logout-button {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(255,100,100,.35);
+    border-radius: 8px;
+    background: rgba(255,70,70,.035);
+    color: #FF9999;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background: rgba(255,70,70,.12);
+    border-color: #FF7777;
+}
+
+/* TOOLBARS AND SEARCH */
+
+.section-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 100%;
+    max-width: 330px;
+    padding: 12px 14px;
+    border: 1px solid var(--gold-border);
+    border-radius: 8px;
+    background: #080808;
+    color: var(--white);
+    outline: none;
+}
+
+.search-input:focus,
+.form-control:focus {
+    border-color: var(--gold-bright);
+    box-shadow: 0 0 0 3px rgba(212,175,55,.1);
+}
+
+.topic-form {
+    display: none;
+    margin-bottom: 25px;
+}
+
+.topic-form.open {
+    display: block;
+}
+
+/* FORMS */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 17px;
+}
+
+.form-group {
+    margin-bottom: 17px;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--gold-light);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 13px;
+    border: 1px solid rgba(212,175,55,.25);
+    border-radius: 8px;
+    background: #080808;
+    color: var(--white);
+    outline: none;
+    font-size: 13px;
+}
+
+.form-control::placeholder,
+.search-input::placeholder {
+    color: #77736A;
+}
+
+.form-control option {
+    background: #111;
+    color: white;
+}
+
+textarea.form-control {
+    min-height: 130px;
+    resize: vertical;
+    line-height: 1.7;
+}
+
+select.form-control {
+    cursor: pointer;
+}
+
+.form-help {
+    margin-top: 6px;
+    color: #898477;
+    font-size: 11px;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* CONTENT LIST */
+
+.topic-list {
+    display: grid;
+    gap: 13px;
+}
+
+.topic-item {
+    padding: 19px;
+    background: linear-gradient(145deg, #171717, #090909);
+    border: 1px solid rgba(212,175,55,.24);
+    border-radius: 11px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.35);
+    transition: border-color .2s, transform .2s;
+}
+
+.topic-item:hover {
+    border-color: rgba(255,215,0,.6);
+    transform: translateY(-2px);
+}
+
+.topic-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.topic-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold-light);
+    overflow-wrap: anywhere;
+}
+
+.topic-description {
+    margin-top: 7px;
+    color: #B7B1A4;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.topic-status {
+    flex-shrink: 0;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.published {
+    background: rgba(70,180,110,.13);
+    color: var(--success);
+    border: 1px solid rgba(70,180,110,.25);
+}
+
+.draft {
+    background: rgba(212,175,55,.1);
+    color: var(--gold);
+    border: 1px solid rgba(212,175,55,.25);
+}
+
+.topic-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.small-button {
+    padding: 8px 12px;
+    border: 1px solid rgba(212,175,55,.3);
+    border-radius: 6px;
+    background: #101010;
+    color: #D9D1BB;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.small-button:hover {
+    border-color: var(--gold-bright);
+    color: var(--gold-bright);
+    background: rgba(212,175,55,.08);
+}
+
+.delete-button {
+    border-color: rgba(255,100,100,.4);
+    color: #FF9999;
+}
+
+.delete-button:hover {
+    background: rgba(220,70,70,.12);
+    border-color: #FF7777;
+    color: #FF9999;
+}
+
+.empty-state {
+    padding: 30px 15px;
+    color: var(--muted);
+    text-align: center;
+    font-size: 13px;
+}
+
+/* PREVIEW */
+
+.preview-box {
+    display: none;
+    margin-top: 18px;
+    padding: 20px;
+    border: 1px solid var(--gold);
+    border-radius: 11px;
+    background: linear-gradient(145deg, #171717, #080808);
+    box-shadow: 0 0 22px rgba(212,175,55,.08);
+}
+
+.preview-box.open {
+    display: block;
+}
+
+.preview-box h4 {
+    margin-bottom: 10px;
+    color: var(--gold-bright);
+    font-family: 'Poppins', sans-serif;
+}
+
+.preview-box p {
+    margin-top: 8px;
+    color: #E4DFD1;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    line-height: 1.7;
+}
+
+.preview-box img {
+    display: block;
+    max-width: 100%;
+    max-height: 220px;
+    margin-top: 14px;
+    border-radius: 8px;
+    border: 1px solid var(--gold-border);
+}
+
+/* STATUS */
+
+.status-message {
+    margin-top: 15px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.error-text {
+    color: #FF9999;
+}
+
+.page-section[hidden] {
+    display: none;
+}
+
+/* SCROLLBAR */
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #80651D #090909;
+}
+
+*::-webkit-scrollbar {
+    width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #090909;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: linear-gradient(#D4AF37, #80651D);
+    border-radius: 10px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:850px) {
+    .sidebar {
+        width: 210px;
+    }
+
+    .main {
+        padding: 25px 18px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+}
+
+@media(max-width:600px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .brand {
+        padding-bottom: 15px;
+    }
+
+    .nav-label {
+        margin-top: 15px;
+    }
+
+    .sidebar-bottom {
+        margin-top: 10px;
+    }
+
+    .main {
+        padding: 23px 15px;
+    }
+
+    .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .stats-grid,
+    .quick-actions,
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full-width {
+        grid-column: auto;
+    }
+
+    .topic-top {
+        flex-direction: column;
+    }
+
+    .search-input {
+        max-width: none;
+    }
+
+    .section-toolbar {
+        align-items: stretch;
+    }
+
+    .section-toolbar .primary-button {
+        width: 100%;
+    }
+
+    .admin-info {
+        max-width: 100%;
+    }
+}
+
+</style>
+
+
+</head>
+
+<body>
+
+<div class="layout" id="dashboardLayout" hidden>
+
+    <aside class="sidebar">
+        <div class="brand">
+            <h2>Islamic <span>Knowledge</span></h2>
+            <p>Content Management System</p>
+        </div>
+
+        <div class="nav-label">MAIN MENU</div>
+        <button class="nav-link active" data-page="dashboardPage">▦ Dashboard</button>
+        <button class="nav-link" data-page="topicsPage">▤ Manage Topics</button>
+        <button class="nav-link" data-page="storiesPage">▤ Manage Stories</button>
+
+        <div class="nav-label">WEBSITE</div>
+        <a href="../index.html" target="_blank" class="nav-link">↗ View Website</a>
+
+        <div class="sidebar-bottom">
+            <button class="logout-button" id="logoutButton">↪ Sign Out</button>
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <h1 id="pageTitle">Dashboard Overview</h1>
+                <p id="pageSubtitle">Welcome to your Islamic Knowledge control centre.</p>
+            </div>
+
+            <div class="admin-info">
+                <div class="admin-avatar">A</div>
+                <div class="admin-email" id="adminEmail">Loading...</div>
+            </div>
+        </header>
+
+        <!-- DASHBOARD -->
+        <section class="page-section" id="dashboardPage">
+            <h2 class="section-heading">Content Statistics</h2>
+
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-title">Total Topics</div>
+                    <div class="stat-number" id="totalTopics">--</div>
+                    <div class="stat-description">All saved topics</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-title">Total Stories</div>
+                    <div class="stat-number" id="totalStories">--</div>
+                    <div class="stat-description">All saved stories</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-title">Published Content</div>
+                    <div class="stat-number" id="publishedContent">--</div>
+                    <div class="stat-description">Published topics and stories</div>
+                </div>
+            </section>
+
+            <section class="content-panel">
+                <h3>Welcome, Administrator!</h3>
+                <p>Manage your Islamic Knowledge content from one place. Monitor your topics and stories and control what visitors can see on your website.</p>
+                <div id="statusMessage" class="status-message">Connecting to Firebase...</div>
+            </section>
+
+            <h2 class="section-heading">Management Overview</h2>
+
+            <section class="content-panel">
+                <div class="quick-actions">
+                    <div class="action-card">
+                        <h4>Topics Management</h4>
+                        <p>Add, edit, publish and manage Islamic topics.</p>
+                    </div>
+                    <div class="action-card">
+                        <h4>Stories Management</h4>
+                        <p>Add, edit, publish and manage Islamic stories.</p>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- TOPICS MANAGEMENT -->
+        <section class="page-section" id="topicsPage" hidden>
+            <div class="section-toolbar">
+                <h2 class="section-heading">Manage Topics</h2>
+                <button class="primary-button" id="addTopicButton">+ Add New Topic</button>
+            </div>
+
+            <section class="content-panel topic-form" id="topicFormPanel">
+                <h3 id="formHeading">Add New Topic</h3>
+
+                <form id="topicForm">
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="topicTitle">Topic Title *</label>
+                            <input class="form-control" id="topicTitle" type="text" maxlength="150" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="topicIcon">Topic Icon</label>
+                            <input class="form-control" id="topicIcon" type="text" maxlength="20" value="📖">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="topicCategory">Topic Category *</label>
+                            <select class="form-control" id="topicCategory" required>
+                                <option value="">Select a category</option>
+                                <option value="dua">Dua &amp; Dhikr</option>
+                                <option value="salah">Salah</option>
+                                <option value="quran">Quran</option>
+                                <option value="hadith">Hadith</option>
+                                <option value="fasting">Fasting &amp; Ramadan</option>
+                                <option value="zakat">Zakat &amp; Sadaqah</option>
+                                <option value="hajj">Hajj &amp; Umrah</option>
+                                <option value="aqeedah">Aqeedah</option>
+                                <option value="akhlaq">Akhlaq &amp; Manners</option>
+                                <option value="family">Family &amp; Marriage</option>
+                                <option value="daily-life">Daily Islamic Life</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="topicStatus">Publishing Status</label>
+                            <select class="form-control" id="topicStatus">
+                                <option value="draft">Save as Draft</option>
+                                <option value="published">Publish</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="topicDescription">Short Description *</label>
+                            <textarea class="form-control" id="topicDescription" maxlength="500" rows="3" required></textarea>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="topicContent">Full Topic Content *</label>
+                            <textarea class="form-control" id="topicContent" rows="7" required></textarea>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="topicImage">Image URL (Optional)</label>
+                            <input class="form-control" id="topicImage" type="url" placeholder="https://example.com/image.jpg">
+                            <div class="form-help">Enter a direct HTTPS image URL.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="submit" class="primary-button" id="saveTopicButton">Save Topic</button>
+                        <button type="button" class="secondary-button" id="previewTopicButton">Preview</button>
+                        <button type="button" class="secondary-button" id="cancelTopicButton">Cancel</button>
+                    </div>
+                </form>
+
+                <div class="preview-box" id="topicPreview">
+                    <h4>Topic Preview</h4>
+                    <div id="previewIcon"></div>
+                    <p id="previewTitle"></p>
+                    <p id="previewDescription"></p>
+                    <p id="previewContent"></p>
+                    <img id="previewImage" alt="Topic preview image" hidden>
+                </div>
+            </section>
+
+            <section class="content-panel">
+                <div class="section-toolbar">
+                    <h3>All Topics</h3>
+
+                    <input class="search-input" type="search" id="topicSearch" placeholder="Search topics...">
+
+                    <select class="form-control" id="topicCategoryFilter" style="max-width:250px;">
+                        <option value="all">All Categories</option>
+                        <option value="dua">Dua &amp; Dhikr</option>
+                        <option value="salah">Salah</option>
+                        <option value="quran">Quran</option>
+                        <option value="hadith">Hadith</option>
+                        <option value="fasting">Fasting &amp; Ramadan</option>
+                        <option value="zakat">Zakat &amp; Sadaqah</option>
+                        <option value="hajj">Hajj &amp; Umrah</option>
+                        <option value="aqeedah">Aqeedah</option>
+                        <option value="akhlaq">Akhlaq &amp; Manners</option>
+                        <option value="family">Family &amp; Marriage</option>
+                        <option value="daily-life">Daily Islamic Life</option>
+                    </select>
+                </div>
+
+                <div id="topicList" class="topic-list">
+                    <div class="empty-state">Loading topics...</div>
+                </div>
+
+                <div id="topicStatusMessage" class="status-message"></div>
+            </section>
+        </section>
+
+        <!-- STORIES MANAGEMENT -->
+        <section class="page-section" id="storiesPage" hidden>
+            <div class="section-toolbar">
+                <h2 class="section-heading">Manage Stories</h2>
+                <button class="primary-button" id="addStoryButton">+ Add New Story</button>
+            </div>
+
+            <section class="content-panel topic-form" id="storyFormPanel">
+                <h3 id="storyFormHeading">Add New Story</h3>
+
+                <form id="storyForm">
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="storyTitle">Story Title *</label>
+                            <input class="form-control" id="storyTitle" type="text" maxlength="150" placeholder="Enter story title" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="storyIcon">Story Icon</label>
+                            <input class="form-control" id="storyIcon" type="text" maxlength="20" value="📖">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="storyCategory">Story Category *</label>
+                            <select class="form-control" id="storyCategory" required>
+                                <option value="prophets">Prophets</option>
+                                <option value="companions">Companions</option>
+                                <option value="battles">Battles &amp; Expeditions</option>
+                                <option value="seerah">Seerah</option>
+                                <option value="history">Islamic History</option>
+                                <option value="women">Women in Islam</option>
+                                <option value="inspiring">Inspiring Stories</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="storyStatus">Publishing Status</label>
+                            <select class="form-control" id="storyStatus">
+                                <option value="draft">Save as Draft</option>
+                                <option value="published">Publish</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="storyDescription">Short Description *</label>
+                            <textarea class="form-control" id="storyDescription" maxlength="500" rows="3" placeholder="Write a short story description" required></textarea>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="storyContent">Full Story Content *</label>
+                            <textarea class="form-control" id="storyContent" rows="9" placeholder="Write the complete story here..." required></textarea>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="storyImage">Image URL (Optional)</label>
+                            <input class="form-control" id="storyImage" type="url" placeholder="https://example.com/image.jpg">
+                            <div class="form-help">Enter a direct HTTPS image URL, not a local computer path.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="submit" class="primary-button" id="saveStoryButton">Save Story</button>
+                        <button type="button" class="secondary-button" id="previewStoryButton">Preview</button>
+                        <button type="button" class="secondary-button" id="cancelStoryButton">Cancel</button>
+                    </div>
+                </form>
+
+                <div class="preview-box" id="storyPreview">
+                    <h4>Story Preview</h4>
+                    <div id="storyPreviewCategory"></div>
+                    <div id="storyPreviewIcon"></div>
+                    <p id="storyPreviewTitle"></p>
+                    <p id="storyPreviewDescription"></p>
+                    <p id="storyPreviewContent"></p>
+                    <img id="storyPreviewImage" alt="Story preview image" hidden>
+                </div>
+            </section>
+
+            <section class="content-panel">
+                <div class="section-toolbar">
+                    <h3>All Stories</h3>
+
+                    <input class="search-input" type="search" id="storySearch" placeholder="Search stories...">
+
+                    <select class="form-control" id="storyCategoryFilter" style="max-width:250px;">
+                        <option value="all">All Categories</option>
+                        <option value="prophets">Prophets</option>
+                        <option value="companions">Companions</option>
+                        <option value="battles">Battles &amp; Expeditions</option>
+                        <option value="seerah">Seerah</option>
+                        <option value="history">Islamic History</option>
+                        <option value="women">Women in Islam</option>
+                        <option value="inspiring">Inspiring Stories</option>
+                    </select>
+                </div>
+
+                <div id="storyList" class="topic-list">
+                    <div class="empty-state">Loading stories...</div>
+                </div>
+
+                <div id="storyStatusMessage" class="status-message"></div>
+            </section>
+        </section>
+
+    </main>
+</div>
+
+<div id="loadingMessage" style="padding:40px;text-align:center;color:#D7B76B;">
+    Verifying administrator access...
+</div>
+
+<script type="module">
+    import { auth, db } from "../js/config.js";
+
+    import {
+        onAuthStateChanged,
+        signOut
+    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+    import {
+        collection,
+        getDocs,
+        addDoc,
+        doc,
+        updateDoc,
+        deleteDoc,
+        serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+    const ADMIN_UID = "O4CvdeZdX4a0Z9ryHF58aNdIZgY2";
+
+    const dashboardLayout = document.getElementById("dashboardLayout");
+    const loadingMessage = document.getElementById("loadingMessage");
+
+    let dashboardLoaded = false;
+    let allTopics = [];
+    let allStories = [];
+    let editingTopicId = null;
+    let editingStoryId = null;
+
+    // =====================================
+    // CATEGORY DEFINITIONS
+    // =====================================
+
+    const topicCategoryNames = {
+        dua: "Dua & Dhikr",
+        salah: "Salah",
+        quran: "Quran",
+        hadith: "Hadith",
+        fasting: "Fasting & Ramadan",
+        zakat: "Zakat & Sadaqah",
+        hajj: "Hajj & Umrah",
+        aqeedah: "Aqeedah",
+        akhlaq: "Akhlaq & Manners",
+        family: "Family & Marriage",
+        "daily-life": "Daily Islamic Life"
+    };
+
+    const categoryNames = {
+        prophets: "Prophets",
+        companions: "Companions",
+        battles: "Battles & Expeditions",
+        seerah: "Seerah",
+        history: "Islamic History",
+        women: "Women in Islam",
+        inspiring: "Inspiring Stories"
+    };
+
+    // =====================================
+    // AUTHENTICATION
+    // =====================================
+
+    onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+            window.location.replace("login.html");
+            return;
+        }
+
+        if (user.uid !== ADMIN_UID) {
+            await signOut(auth);
+            window.location.replace("login.html");
+            return;
+        }
+
+        if (dashboardLoaded) return;
+        dashboardLoaded = true;
+
+        loadingMessage.hidden = true;
+        dashboardLayout.hidden = false;
+
+        document.getElementById("adminEmail").textContent =
+            user.email || "Administrator";
+
+        await loadDashboardStatistics();
+        await loadTopics();
+        await loadStories();
+    });
+
+    // =====================================
+    // NAVIGATION
+    // =====================================
+
+    const pageTitles = {
+        dashboardPage: {
+            title: "Dashboard Overview",
+            subtitle: "Welcome to your Islamic Knowledge control centre."
+        },
+        topicsPage: {
+            title: "Topics Management",
+            subtitle: "Create and manage your Islamic topics."
+        },
+        storiesPage: {
+            title: "Stories Management",
+            subtitle: "Create and manage your Islamic stories."
+        }
+    };
+
+    document.querySelectorAll("[data-page]").forEach(button => {
+        button.addEventListener("click", () => {
+            const pageId = button.dataset.page;
+
+            document.querySelectorAll(".page-section").forEach(section => {
+                section.hidden = section.id !== pageId;
+            });
+
+            document.querySelectorAll("[data-page]").forEach(link => {
+                link.classList.toggle("active", link === button);
+            });
+
+            document.getElementById("pageTitle").textContent =
+                pageTitles[pageId].title;
+
+            document.getElementById("pageSubtitle").textContent =
+                pageTitles[pageId].subtitle;
+
+            if (pageId === "topicsPage") loadTopics();
+            if (pageId === "storiesPage") loadStories();
+        });
+    });
+
+    // =====================================
+    // DASHBOARD STATISTICS
+    // =====================================
+
+    async function loadDashboardStatistics() {
+        const status = document.getElementById("statusMessage");
+
+        try {
+            const [topicsSnapshot, storiesSnapshot] = await Promise.all([
+                getDocs(collection(db, "topics")),
+                getDocs(collection(db, "stories"))
+            ]);
+
+            const publishedTopics = topicsSnapshot.docs.filter(
+                item => item.data().status === "published"
+            ).length;
+
+            const publishedStories = storiesSnapshot.docs.filter(
+                item => item.data().status === "published"
+            ).length;
+
+            document.getElementById("totalTopics").textContent =
+                topicsSnapshot.size;
+
+            document.getElementById("totalStories").textContent =
+                storiesSnapshot.size;
+
+            document.getElementById("publishedContent").textContent =
+                publishedTopics + publishedStories;
+
+            status.textContent =
+                "Firebase connected successfully. Dashboard statistics loaded.";
+
+            status.classList.remove("error-text");
+        } catch (error) {
+            console.error("Dashboard statistics error:", error);
+            status.textContent =
+                "Could not load dashboard statistics. Check Firestore permissions.";
+            status.classList.add("error-text");
+        }
+    }
+
+    // =====================================
+    // COMMON HELPERS
+    // =====================================
+
+    function createActionButton(label, extraClass = "") {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "small-button " + extraClass;
+        button.textContent = label;
+        return button;
+    }
+
+    function validateImageUrl(imageUrl) {
+        if (!imageUrl) return true;
+
+        try {
+            return new URL(imageUrl).protocol === "https:";
+        } catch {
+            return false;
+        }
+    }
+
+    function showImagePreview(element, imageUrl) {
+        element.hidden = true;
+        element.removeAttribute("src");
+
+        if (imageUrl && validateImageUrl(imageUrl)) {
+            element.src = imageUrl;
+            element.hidden = false;
+        }
+    }
+
+    // =====================================
+    // TOPICS: LOAD AND DISPLAY
+    // =====================================
+
+    async function loadTopics() {
+        const topicList = document.getElementById("topicList");
+        topicList.innerHTML =
+            '<div class="empty-state">Loading topics...</div>';
+
+        document.getElementById("topicStatusMessage").textContent = "";
+
+        try {
+            const snapshot = await getDocs(collection(db, "topics"));
+
+            allTopics = snapshot.docs.map(item => ({
+                id: item.id,
+                ...item.data()
+            }));
+
+            renderTopics();
+        } catch (error) {
+            console.error("Topics loading error:", error);
+            topicList.innerHTML =
+                '<div class="empty-state error-text">Unable to load topics. Check Firestore permissions.</div>';
+        }
+    }
+
+    function renderTopics() {
+        const searchTerm =
+            document.getElementById("topicSearch").value.trim().toLowerCase();
+
+        const selectedCategory =
+            document.getElementById("topicCategoryFilter").value;
+
+        const filteredTopics = allTopics.filter(topic => {
+            const title = (topic.title || "").toLowerCase();
+            const description = (topic.description || "").toLowerCase();
+            const category = topic.category || "daily-life";
+
+            const matchesSearch =
+                title.includes(searchTerm) ||
+                description.includes(searchTerm);
+
+            const matchesCategory =
+                selectedCategory === "all" ||
+                category === selectedCategory;
+
+            return matchesSearch && matchesCategory;
+        });
+
+        const topicList = document.getElementById("topicList");
+        topicList.innerHTML = "";
+
+        if (!filteredTopics.length) {
+            topicList.innerHTML =
+                '<div class="empty-state">No matching topics found.</div>';
+            return;
+        }
+
+        filteredTopics.forEach(topic => {
+            const item = document.createElement("article");
+            item.className = "topic-item";
+
+            const top = document.createElement("div");
+            top.className = "topic-top";
+
+            const details = document.createElement("div");
+
+            const title = document.createElement("div");
+            title.className = "topic-title";
+            title.textContent =
+                (topic.icon || "📖") + " " + (topic.title || "Untitled Topic");
+
+            const description = document.createElement("div");
+            description.className = "topic-description";
+
+            const category = topic.category || "daily-life";
+
+            description.textContent =
+                (topicCategoryNames[category] || "Daily Islamic Life") +
+                " · " +
+                (topic.description || "No description available.");
+
+            details.append(title, description);
+
+            const status = document.createElement("span");
+            status.className = "topic-status " +
+                (topic.status === "published" ? "published" : "draft");
+            status.textContent =
+                topic.status === "published" ? "PUBLISHED" : "DRAFT";
+
+            top.append(details, status);
+
+            const actions = document.createElement("div");
+            actions.className = "topic-actions";
+
+            const editButton = createActionButton("Edit");
+            editButton.addEventListener("click", () => editTopic(topic.id));
+
+            const previewButton = createActionButton("Preview");
+            previewButton.addEventListener("click", () => previewSavedTopic(topic));
+
+            const toggleButton = createActionButton(
+                topic.status === "published" ? "Unpublish" : "Publish"
+            );
+            toggleButton.addEventListener("click", () => toggleTopicStatus(topic));
+
+            const deleteButton = createActionButton("Delete", "delete-button");
+            deleteButton.addEventListener("click", () => removeTopic(topic.id));
+
+            actions.append(editButton, previewButton, toggleButton, deleteButton);
+            item.append(top, actions);
+            topicList.appendChild(item);
+        });
+    }
+
+    document.getElementById("topicSearch")
+        .addEventListener("input", renderTopics);
+
+    document.getElementById("topicCategoryFilter")
+        .addEventListener("change", renderTopics);
+
+    // =====================================
+    // TOPICS: ADD AND EDIT
+    // =====================================
+
+    function resetTopicForm() {
+        editingTopicId = null;
+
+        document.getElementById("topicForm").reset();
+        document.getElementById("topicIcon").value = "📖";
+        document.getElementById("topicCategory").value = "";
+        document.getElementById("topicStatus").value = "draft";
+        document.getElementById("formHeading").textContent = "Add New Topic";
+        document.getElementById("saveTopicButton").textContent = "Save Topic";
+        document.getElementById("topicFormPanel").classList.remove("open");
+        document.getElementById("topicPreview").classList.remove("open");
+    }
+
+    document.getElementById("addTopicButton").addEventListener("click", () => {
+        resetTopicForm();
+
+        document.getElementById("topicFormPanel").classList.add("open");
+        document.getElementById("topicFormPanel").scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    });
+
+    function editTopic(topicId) {
+        const topic = allTopics.find(item => item.id === topicId);
+        if (!topic) return;
+
+        editingTopicId = topicId;
+
+        document.getElementById("formHeading").textContent = "Edit Topic";
+        document.getElementById("topicTitle").value = topic.title || "";
+        document.getElementById("topicIcon").value = topic.icon || "📖";
+
+        document.getElementById("topicCategory").value =
+            topicCategoryNames[topic.category] ? topic.category : "daily-life";
+
+        document.getElementById("topicDescription").value = topic.description || "";
+        document.getElementById("topicContent").value = topic.content || "";
+        document.getElementById("topicImage").value = topic.imageUrl || "";
+
+        document.getElementById("topicStatus").value =
+            topic.status === "published" ? "published" : "draft";
+
+        document.getElementById("saveTopicButton").textContent = "Update Topic";
+        document.getElementById("topicFormPanel").classList.add("open");
+        document.getElementById("topicPreview").classList.remove("open");
+
+        document.getElementById("topicFormPanel").scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+
+    document.getElementById("topicForm").addEventListener("submit", async event => {
+        event.preventDefault();
+
+        const title = document.getElementById("topicTitle").value.trim();
+        const description = document.getElementById("topicDescription").value.trim();
+        const content = document.getElementById("topicContent").value.trim();
+        const icon = document.getElementById("topicIcon").value.trim() || "📖";
+        const category = document.getElementById("topicCategory").value;
+        const imageUrl = document.getElementById("topicImage").value.trim();
+        const status = document.getElementById("topicStatus").value;
+        const saveButton = document.getElementById("saveTopicButton");
+
+        if (!title || !description || !content || !category) {
+            alert("Please fill in all required fields and select a topic category.");
+            return;
+        }
+
+        if (!validateImageUrl(imageUrl)) {
+            alert("Please enter a valid HTTPS image URL.");
+            return;
+        }
+
+        const topicData = {
+            title,
+            description,
+            content,
+            icon,
+            category,
+            categoryName: topicCategoryNames[category],
+            imageUrl,
+            status,
+            updatedAt: serverTimestamp()
+        };
+
+        const wasEditing = Boolean(editingTopicId);
+
+        saveButton.disabled = true;
+        saveButton.textContent = "Saving...";
+
+        try {
+            if (wasEditing) {
+                await updateDoc(doc(db, "topics", editingTopicId), topicData);
+
+                document.getElementById("topicStatusMessage").textContent =
+                    "Topic updated successfully.";
+            } else {
+                await addDoc(collection(db, "topics"), {
+                    ...topicData,
+                    createdAt: serverTimestamp()
+                });
+
+                document.getElementById("topicStatusMessage").textContent =
+                    "New topic added successfully.";
+            }
+
+            resetTopicForm();
+            await loadTopics();
+            await loadDashboardStatistics();
+
+        } catch (error) {
+            console.error("Topic save error:", error);
+            alert("Could not save topic. Check Firestore permissions and try again.");
+        } finally {
+            saveButton.disabled = false;
+            saveButton.textContent = "Save Topic";
+        }
+    });
+
+    async function toggleTopicStatus(topic) {
+        const newStatus = topic.status === "published" ? "draft" : "published";
+
+        if (!confirm(newStatus === "published"
+            ? "Publish this topic on the website?"
+            : "Unpublish this topic from the website?")) return;
+
+        try {
+            await updateDoc(doc(db, "topics", topic.id), {
+                status: newStatus,
+                updatedAt: serverTimestamp()
+            });
+
+            document.getElementById("topicStatusMessage").textContent =
+                newStatus === "published"
+                    ? "Topic published successfully."
+                    : "Topic unpublished successfully.";
+
+            await loadTopics();
+            await loadDashboardStatistics();
+
+        } catch (error) {
+            console.error("Topic status error:", error);
+            alert("Unable to change publishing status.");
+        }
+    }
+
+    async function removeTopic(topicId) {
+        if (!confirm("Are you sure you want to permanently delete this topic?")) return;
+
+        try {
+            await deleteDoc(doc(db, "topics", topicId));
+
+            document.getElementById("topicStatusMessage").textContent =
+                "Topic deleted successfully.";
+
+            await loadTopics();
+            await loadDashboardStatistics();
+
+        } catch (error) {
+            console.error("Topic delete error:", error);
+            alert("Unable to delete topic. Please try again.");
+        }
+    }
+
+    document.getElementById("previewTopicButton").addEventListener("click", () => {
+        showTopicPreview({
+            title: document.getElementById("topicTitle").value.trim(),
+            description: document.getElementById("topicDescription").value.trim(),
+            content: document.getElementById("topicContent").value.trim(),
+            icon: document.getElementById("topicIcon").value.trim(),
+            category: document.getElementById("topicCategory").value,
+            imageUrl: document.getElementById("topicImage").value.trim()
+        });
+    });
+
+    function previewSavedTopic(topic) {
+        showTopicPreview(topic);
+
+        document.getElementById("topicFormPanel").classList.add("open");
+        document.getElementById("topicFormPanel").scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+
+    function showTopicPreview(topic) {
+        const category = topic.category || "daily-life";
+
+        document.getElementById("previewIcon").textContent = topic.icon || "📖";
+        document.getElementById("previewTitle").textContent = topic.title || "Topic title";
+
+        document.getElementById("previewDescription").textContent =
+            (topicCategoryNames[category] || "Daily Islamic Life") +
+            " · " + (topic.description || "Topic description");
+
+        document.getElementById("previewContent").textContent =
+            topic.content || "Topic content";
+
+        showImagePreview(
+            document.getElementById("previewImage"),
+            topic.imageUrl
+        );
+
+        document.getElementById("topicPreview").classList.add("open");
+    }
+
+    document.getElementById("cancelTopicButton")
+        .addEventListener("click", resetTopicForm);
+
+    // =====================================
+    // STORIES: LOAD AND DISPLAY
+    // =====================================
+
+    async function loadStories() {
+        const storyList = document.getElementById("storyList");
+
+        storyList.innerHTML =
+            '<div class="empty-state">Loading stories...</div>';
+
+        document.getElementById("storyStatusMessage").textContent = "";
+
+        try {
+            const snapshot = await getDocs(collection(db, "stories"));
+
+            allStories = snapshot.docs.map(item => ({
+                id: item.id,
+                ...item.data()
+            }));
+
+            renderStories();
+
+        } catch (error) {
+            console.error("Stories loading error:", error);
+
+            storyList.innerHTML =
+                '<div class="empty-state error-text">Unable to load stories. Check Firestore permissions.</div>';
+        }
+    }
+
+    function renderStories() {
+        const searchTerm =
+            document.getElementById("storySearch").value.trim().toLowerCase();
+
+        const selectedCategory =
+            document.getElementById("storyCategoryFilter").value;
+
+        const filteredStories = allStories.filter(story => {
+            const title = (story.title || "").toLowerCase();
+            const description = (story.description || "").toLowerCase();
+
+            const matchesSearch =
+                title.includes(searchTerm) ||
+                description.includes(searchTerm);
+
+            // Older stories without a category are treated as Inspiring Stories.
+            const category = story.category || "inspiring";
+
+            const matchesCategory =
+                selectedCategory === "all" ||
+                category === selectedCategory;
+
+            return matchesSearch && matchesCategory;
+        });
+
+        const storyList = document.getElementById("storyList");
+        storyList.innerHTML = "";
+
+        if (!filteredStories.length) {
+            storyList.innerHTML =
+                '<div class="empty-state">No matching stories found.</div>';
+            return;
+        }
+
+        filteredStories.forEach(story => {
+            const item = document.createElement("article");
+            item.className = "topic-item";
+
+            const top = document.createElement("div");
+            top.className = "topic-top";
+
+            const details = document.createElement("div");
+
+            const title = document.createElement("div");
+            title.className = "topic-title";
+            title.textContent =
+                (story.icon || "📖") + " " + (story.title || "Untitled Story");
+
+            const description = document.createElement("div");
+            description.className = "topic-description";
+
+            const category = story.category || "inspiring";
+
+            description.textContent =
+                (categoryNames[category] || "Inspiring Stories") +
+                " · " + (story.description || "No description available.");
+
+            details.append(title, description);
+
+            const status = document.createElement("span");
+            status.className = "topic-status " +
+                (story.status === "published" ? "published" : "draft");
+
+            status.textContent =
+                story.status === "published" ? "PUBLISHED" : "DRAFT";
+
+            top.append(details, status);
+
+            const actions = document.createElement("div");
+            actions.className = "topic-actions";
+
+            const editButton = createActionButton("Edit");
+            editButton.addEventListener("click", () => editStory(story.id));
+
+            const previewButton = createActionButton("Preview");
+            previewButton.addEventListener("click", () => previewSavedStory(story));
+
+            const toggleButton = createActionButton(
+                story.status === "published" ? "Unpublish" : "Publish"
+            );
+            toggleButton.addEventListener("click", () => toggleStoryStatus(story));
+
+            const deleteButton = createActionButton("Delete", "delete-button");
+            deleteButton.addEventListener("click", () => removeStory(story.id));
+
+            actions.append(editButton, previewButton, toggleButton, deleteButton);
+            item.append(top, actions);
+            storyList.appendChild(item);
+        });
+    }
+
+    document.getElementById("storySearch")
+        .addEventListener("input", renderStories);
+
+    document.getElementById("storyCategoryFilter")
+        .addEventListener("change", renderStories);
+
+    // =====================================
+    // STORIES: ADD AND EDIT
+    // =====================================
+
+    function resetStoryForm() {
+        editingStoryId = null;
+
+        document.getElementById("storyForm").reset();
+        document.getElementById("storyIcon").value = "📖";
+        document.getElementById("storyCategory").value = "prophets";
+        document.getElementById("storyStatus").value = "draft";
+        document.getElementById("storyFormHeading").textContent = "Add New Story";
+        document.getElementById("saveStoryButton").textContent = "Save Story";
+        document.getElementById("storyFormPanel").classList.remove("open");
+        document.getElementById("storyPreview").classList.remove("open");
+    }
+
+    document.getElementById("addStoryButton").addEventListener("click", () => {
+        resetStoryForm();
+
+        document.getElementById("storyFormPanel").classList.add("open");
+        document.getElementById("storyFormPanel").scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    });
+
+    function editStory(storyId) {
+        const story = allStories.find(item => item.id === storyId);
+        if (!story) return;
+
+        editingStoryId = storyId;
+
+        document.getElementById("storyFormHeading").textContent = "Edit Story";
+        document.getElementById("storyTitle").value = story.title || "";
+        document.getElementById("storyIcon").value = story.icon || "📖";
+
+        document.getElementById("storyCategory").value =
+            categoryNames[story.category] ? story.category : "inspiring";
+
+        document.getElementById("storyDescription").value = story.description || "";
+        document.getElementById("storyContent").value = story.content || "";
+        document.getElementById("storyImage").value = story.imageUrl || "";
+
+        document.getElementById("storyStatus").value =
+            story.status === "published" ? "published" : "draft";
+
+        document.getElementById("saveStoryButton").textContent = "Update Story";
+        document.getElementById("storyFormPanel").classList.add("open");
+        document.getElementById("storyPreview").classList.remove("open");
+
+        document.getElementById("storyFormPanel").scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+
+    document.getElementById("storyForm").addEventListener("submit", async event => {
+        event.preventDefault();
+
+        const title = document.getElementById("storyTitle").value.trim();
+        const icon = document.getElementById("storyIcon").value.trim() || "📖";
+        const category = document.getElementById("storyCategory").value;
+        const description = document.getElementById("storyDescription").value.trim();
+        const content = document.getElementById("storyContent").value.trim();
+        const imageUrl = document.getElementById("storyImage").value.trim();
+        const status = document.getElementById("storyStatus").value;
+
+        const saveButton = document.getElementById("saveStoryButton");
+
+        if (!title || !description || !content || !category) {
+            alert("Please fill in the story title, description and category.");
+            return;
+        }
+
+        if (!validateImageUrl(imageUrl)) {
+            alert("Please enter a valid HTTPS image URL.");
+            return;
+        }
+
+        const storyData = {
+            title,
+            description,
+            content,
+            category,
+            categoryName: categoryNames[category],
+            icon,
+            imageUrl,
+            status,
+            updatedAt: serverTimestamp()
+        };
+
+        const wasEditing = Boolean(editingStoryId);
+
+        saveButton.disabled = true;
+        saveButton.textContent = "Saving...";
+
+        try {
+            if (wasEditing) {
+                await updateDoc(doc(db, "stories", editingStoryId), storyData);
+
+                document.getElementById("storyStatusMessage").textContent =
+                    "Story updated successfully.";
+            } else {
+                await addDoc(collection(db, "stories"), {
+                    ...storyData,
+                    createdAt: serverTimestamp()
+                });
+
+                document.getElementById("storyStatusMessage").textContent =
+                    "New story added successfully.";
+            }
+
+            resetStoryForm();
+            await loadStories();
+            await loadDashboardStatistics();
+
+        } catch (error) {
+            console.error("Story save error:", error);
+            alert("Could not save story. Check Firestore permissions and try again.");
+        } finally {
+            saveButton.disabled = false;
+            saveButton.textContent = "Save Story";
+        }
+    });
+
+    // =====================================
+    // STORIES: PUBLISH / UNPUBLISH
+    // =====================================
+
+    async function toggleStoryStatus(story) {
+        const newStatus =
+            story.status === "published" ? "draft" : "published";
+
+        const confirmation = confirm(
+            newStatus === "published"
+                ? "Publish this story on the website?"
+                : "Unpublish this story from the website?"
+        );
+
+        if (!confirmation) return;
+
+        try {
+            await updateDoc(doc(db, "stories", story.id), {
+                status: newStatus,
+                updatedAt: serverTimestamp()
+            });
+
+            document.getElementById("storyStatusMessage").textContent =
+                newStatus === "published"
+                    ? "Story published successfully."
+                    : "Story unpublished successfully.";
+
+            await loadStories();
+            await loadDashboardStatistics();
+
+        } catch (error) {
+            console.error("Story status error:", error);
+            alert("Unable to change publishing status.");
+        }
+    }
+
+    // =====================================
+    // STORIES: DELETE
+    // =====================================
+
+    async function removeStory(storyId) {
+        if (!confirm("Are you sure you want to permanently delete this story?")) return;
+
+        try {
+            await deleteDoc(doc(db, "stories", storyId));
+
+            document.getElementById("storyStatusMessage").textContent =
+                "Story deleted successfully.";
+
+            await loadStories();
+            await loadDashboardStatistics();
+
+        } catch (error) {
+            console.error("Story delete error:", error);
+            alert("Unable to delete story. Please try again.");
+        }
+    }
+
+    // =====================================
+    // STORIES: PREVIEW
+    // =====================================
+
+    document.getElementById("previewStoryButton").addEventListener("click", () => {
+        showStoryPreview({
+            title: document.getElementById("storyTitle").value.trim(),
+            icon: document.getElementById("storyIcon").value.trim(),
+            category: document.getElementById("storyCategory").value,
+            description: document.getElementById("storyDescription").value.trim(),
+            content: document.getElementById("storyContent").value.trim(),
+            imageUrl: document.getElementById("storyImage").value.trim()
+        });
+    });
+
+    function previewSavedStory(story) {
+        showStoryPreview(story);
+
+        document.getElementById("storyFormPanel").classList.add("open");
+        document.getElementById("storyFormPanel").scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+
+    function showStoryPreview(story) {
+        document.getElementById("storyPreviewCategory").textContent =
+            categoryNames[story.category] || "Inspiring Stories";
+
+        document.getElementById("storyPreviewIcon").textContent =
+            story.icon || "📖";
+
+        document.getElementById("storyPreviewTitle").textContent =
+            story.title || "Story title";
+
+        document.getElementById("storyPreviewDescription").textContent =
+            story.description || "Story description";
+
+        document.getElementById("storyPreviewContent").textContent =
+            story.content || "Story content";
+
+        showImagePreview(
+            document.getElementById("storyPreviewImage"),
+            story.imageUrl
+        );
+
+        document.getElementById("storyPreview").classList.add("open");
+    }
+
+    document.getElementById("cancelStoryButton")
+        .addEventListener("click", resetStoryForm);
+
+    // =====================================
+    // LOGOUT
+    // =====================================
+
+    document.getElementById("logoutButton").addEventListener("click", async () => {
+        try {
+            await signOut(auth);
+            window.location.replace("login.html");
+        } catch (error) {
+            console.error("Logout error:", error);
+            alert("Unable to sign out. Please try again.");
+        }
+    });
+</script>
+
+</body>
+</html>

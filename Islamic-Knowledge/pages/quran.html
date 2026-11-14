@@ -1,0 +1,1294 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#F8F7F3">
+    <meta name="description" content="Read the Holy Quran in Arabic with Urdu and English translations.">
+    <title>Holy Quran | Islamic Knowledge</title>
+
+    <!-- APPLY SHARED SETTINGS THEME -->
+    <script>
+        (function () {
+            const THEME_KEY = "ik-theme";
+
+            function applySavedTheme() {
+                let theme = "light";
+
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved === "light" || saved === "dark") {
+                        theme = saved;
+                    }
+                } catch (error) {
+                    console.warn("Theme preference unavailable.");
+                }
+
+                document.documentElement.setAttribute("data-theme", theme);
+
+                const themeColor = document.querySelector(
+                    'meta[name="theme-color"]'
+                );
+
+                if (themeColor) {
+                    themeColor.content =
+                        theme === "dark" ? "#10251D" : "#F8F7F3";
+                }
+            }
+
+            applySavedTheme();
+            window.addEventListener("pageshow", applySavedTheme);
+
+            window.addEventListener("storage", function (event) {
+                if (event.key === THEME_KEY) {
+                    applySavedTheme();
+                }
+            });
+        })();
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+
+    <style>
+        /* SETTINGS ICON - MATCHES HOME PAGE */
+
+        .settings-icon {
+            width: 42px;
+            height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: #D4AF37;
+            background: #0B0B0B;
+            border: 1px solid rgba(212, 175, 55, .55);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+        }
+
+        .settings-icon svg {
+            width: 23px;
+            height: 23px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform .4s ease;
+        }
+
+        .settings-icon:hover {
+            border-color: #FFD700;
+            box-shadow: 0 0 12px rgba(212, 175, 55, .35);
+            transform: scale(1.06);
+        }
+
+        .settings-icon:hover svg {
+            transform: rotate(45deg);
+        }
+
+        .settings-icon:focus-visible {
+            outline: 2px solid #D4AF37;
+            outline-offset: 4px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .settings-icon,
+            .settings-icon svg {
+                transition: none;
+            }
+        }
+
+        .quran-page {
+            width: min(1120px, 92%);
+            margin: auto;
+            padding-top: 35px;
+        }
+
+        .quran-heading {
+            text-align: center;
+            padding: 35px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            margin-bottom: 30px;
+        }
+
+        .quran-heading .arabic-title {
+            font-family: 'Amiri', serif;
+            font-size: 42px;
+            color: var(--primary);
+        }
+
+        .quran-heading h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 25px;
+            margin-top: 8px;
+        }
+
+        .quran-heading p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        .quran-search {
+            margin-bottom: 25px;
+        }
+
+        .quran-search input {
+            width: 100%;
+            padding: 15px 18px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface);
+            color: var(--text);
+            font-size: 14px;
+            outline: none;
+        }
+
+        .quran-search input:focus {
+            border-color: var(--primary);
+        }
+
+        .quran-section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            gap: 10px;
+        }
+
+        .quran-section-title h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+        }
+
+        .surah-count {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .surah-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .surah-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 17px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text);
+            text-align: left;
+            width: 100%;
+        }
+
+        .surah-card:hover {
+            background: var(--surface-hover);
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+
+        .surah-card:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 3px;
+        }
+
+        .surah-number {
+            min-width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .surah-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .surah-info h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+        }
+
+        .surah-info p {
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 3px;
+        }
+
+        .surah-arabic {
+            font-family: 'Amiri', serif;
+            font-size: 23px;
+            color: var(--primary);
+            white-space: nowrap;
+        }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            color: var(--muted);
+            background: var(--surface);
+            border-radius: 12px;
+        }
+
+        /* QURAN READER */
+
+        .quran-reader {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .reader-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .reader-header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+        }
+
+        .back-button {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--primary);
+            border-radius: 8px;
+            padding: 9px 13px;
+            cursor: pointer;
+        }
+
+        .reader-surah-details {
+            text-align: center;
+            padding: 25px 15px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .reader-arabic-name {
+            font-family: 'Amiri', serif;
+            font-size: 38px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .reader-english-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 19px;
+            margin-bottom: 8px;
+        }
+
+        .reader-meta {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .translation-note {
+            color: var(--muted);
+            font-size: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* VERSES */
+
+        .verse-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .verse-card {
+            padding: 22px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 13px;
+        }
+
+        .verse-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 32px;
+            height: 32px;
+            padding: 0 8px;
+            border-radius: 8px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .verse-arabic {
+            font-family: 'Amiri', serif;
+            font-size: 29px;
+            line-height: 2.1;
+            text-align: right;
+            direction: rtl;
+            color: var(--text);
+            margin-bottom: 22px;
+            overflow-wrap: anywhere;
+        }
+
+        .translation-label {
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 8px;
+        }
+
+        .verse-urdu {
+            font-family: 'Noto Nastaliq Urdu', serif;
+            font-size: 19px;
+            line-height: 2.4;
+            direction: rtl;
+            text-align: right;
+            margin-bottom: 20px;
+            overflow-wrap: anywhere;
+        }
+
+        .verse-english {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            line-height: 1.9;
+            color: var(--muted);
+            overflow-wrap: anywhere;
+        }
+
+        .reader-message {
+            text-align: center;
+            padding: 30px 15px;
+            color: var(--muted);
+            line-height: 1.8;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .reader-message button {
+            display: block;
+            margin: 15px auto 0;
+            padding: 10px 18px;
+            border-radius: 8px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .surah-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 22px;
+        }
+
+        .surah-navigation button {
+            padding: 11px 16px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            background: var(--bg);
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        .surah-navigation button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 650px) {
+            .quran-page {
+                padding-top: 20px;
+            }
+
+            .quran-heading {
+                padding: 25px 12px;
+            }
+
+            .quran-heading .arabic-title {
+                font-size: 34px;
+            }
+
+            .quran-heading h1 {
+                font-size: 21px;
+            }
+
+            .surah-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .surah-card {
+                padding: 14px;
+            }
+
+            .quran-reader {
+                padding: 15px;
+            }
+
+            .reader-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .reader-arabic-name {
+                font-size: 33px;
+            }
+
+            .verse-card {
+                padding: 16px;
+            }
+
+            .verse-arabic {
+                font-size: 26px;
+            }
+
+            .verse-urdu {
+                font-size: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="../index.html" class="brand">
+                <span class="brand-icon">☪</span>
+                <span>Islamic <strong>Knowledge</strong></span>
+            </a>
+
+            <!-- SETTINGS BUTTON - SAME AS HOME PAGE -->
+            <a href="settings.html"
+               class="theme-toggle settings-icon"
+               id="settingsButton"
+               aria-label="Open Settings"
+               title="Settings">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6Z"/>
+                    <path d="M19.4 15a7.8 7.8 0 0 0 0-2l1.5-1.2-1.5-2.6-1.8.7a7.8 7.8 0 0 0-1.7-1L15.6 7h-3.2l-.3 1.9a7.8 7.8 0 0 0-1.7 1l-1.8-.7-1.5 2.6L8.6 13a7.8 7.8 0 0 0 0 2l-1.5 1.2 1.5 2.6 1.8-.7a7.8 7.8 0 0 0 1.7 1l.3 1.9h3.2l.3-1.9a7.8 7.8 0 0 0 1.7-1l1.8.7 1.5-2.6L19.4 15Z"/>
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <!-- DESKTOP NAVIGATION - SAME ICONS AS HOME PAGE -->
+    <nav class="lux-nav" aria-label="Main navigation">
+        <div class="lux-nav-inner">
+
+            <a href="quran.html"
+               class="nav-link active"
+               data-page="quran"
+               aria-current="page"
+               aria-label="Quran">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 7v14M12 7C9 4 5 4 2 5v14c4-1 7-1 10 2M12 7c3-3 7-3 10-2v14c-4-1-7-1-10 2"/>
+                </svg>
+                <span>Quran</span>
+            </a>
+
+            <a href="hadith.html"
+               class="nav-link"
+               data-page="hadith"
+               aria-label="Hadith">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 4h12a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3z"/>
+                    <path d="M4 17a3 3 0 0 1 3-3h12M8 8h7M8 11h7"/>
+                </svg>
+                <span>Hadith</span>
+            </a>
+
+            <a href="topics.html"
+               class="nav-link"
+               data-page="topics"
+               aria-label="Topics">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 5h16M4 12h16M4 19h16"/>
+                    <circle cx="7" cy="5" r="1"/>
+                    <circle cx="7" cy="12" r="1"/>
+                    <circle cx="7" cy="19" r="1"/>
+                </svg>
+                <span>Topic</span>
+            </a>
+
+            <a href="../index.html"
+               class="nav-link home-logo"
+               data-page="home"
+               aria-label="Home">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m3 10 9-7 9 7"/>
+                    <path d="M5 9v12h14V9M9 21v-7h6v7"/>
+                </svg>
+            </a>
+
+            <a href="calendar.html"
+               class="nav-link"
+               data-page="calendar"
+               aria-label="Calendar">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="5" width="18" height="16" rx="2"/>
+                    <path d="M7 3v4M17 3v4M3 10h18M8 14h2M14 14h2M8 17h2"/>
+                </svg>
+                <span>Calendar</span>
+            </a>
+
+            <a href="stories.html"
+               class="nav-link"
+               data-page="stories"
+               aria-label="Stories">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M6 3h12v18l-6-4-6 4z"/>
+                    <path d="M9 8h6M9 11h6"/>
+                </svg>
+                <span>Stories</span>
+            </a>
+
+            <a href="qibla.html"
+               class="nav-link"
+               data-page="qibla"
+               aria-label="Qibla">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9"/>
+                    <path d="m15.5 8.5-2.2 5.2-5.2 2.2 2.2-5.2z"/>
+                    <circle cx="12" cy="12" r="1"/>
+                </svg>
+                <span>Qibla</span>
+            </a>
+
+        </div>
+    </nav>
+
+    <!-- MAIN QURAN PAGE -->
+    <main class="quran-page">
+
+        <section class="quran-heading">
+            <div class="arabic-title">الْقُرْآنُ الْكَرِيم</div>
+            <h1>The Holy Quran</h1>
+            <p>Read, understand and reflect upon the words of Allah.</p>
+        </section>
+
+        <!-- SEARCH -->
+        <div class="quran-search">
+            <input
+                type="search"
+                id="surahSearch"
+                placeholder="Search Surah by name or number..."
+                aria-label="Search Surah"
+            >
+        </div>
+
+        <!-- SURAH LIST -->
+        <section id="surahSection">
+            <div class="quran-section-title">
+                <h2>Surah List</h2>
+                <span class="surah-count" id="surahCount">114 Surahs</span>
+            </div>
+
+            <div class="surah-grid" id="surahGrid"></div>
+
+            <div class="no-results" id="noResults">
+                No Surah found. Try another search.
+            </div>
+        </section>
+
+        <!-- QURAN READER -->
+        <section class="quran-reader" id="quranReader">
+
+            <div class="reader-header">
+                <h2 id="readerTitle">Surah</h2>
+
+                <button class="back-button" id="backButton">
+                    ← Back to Surahs
+                </button>
+            </div>
+
+            <div id="verseContainer" aria-live="polite">
+                <div class="reader-message">
+                    Select a Surah to begin reading.
+                </div>
+            </div>
+
+            <div class="surah-navigation">
+                <button id="previousSurah" disabled>
+                    ← Previous Surah
+                </button>
+
+                <button id="nextSurah" disabled>
+                    Next Surah →
+                </button>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <h3>Islamic Knowledge</h3>
+            <p>Read, reflect and seek knowledge.</p>
+            <p class="copyright">
+                © 2026 Islamic Knowledge. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- MOBILE BOTTOM NAVIGATION - SAME ICONS AS HOME PAGE -->
+    <nav class="lux-bottom-nav" aria-label="Mobile navigation">
+
+        <a href="quran.html"
+           class="bottom-link active"
+           data-page="quran"
+           aria-current="page"
+           aria-label="Quran"
+           title="Quran">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 7v14M12 7C9 4 5 4 2 5v14c4-1 7-1 10 2M12 7c3-3 7-3 10-2v14c-4-1-7-1-10 2"/>
+            </svg>
+        </a>
+
+        <a href="hadith.html"
+           class="bottom-link"
+           data-page="hadith"
+           aria-label="Hadith"
+           title="Hadith">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 4h12a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3z"/>
+                <path d="M4 17a3 3 0 0 1 3-3h12M8 8h7M8 11h7"/>
+            </svg>
+        </a>
+
+        <a href="topics.html"
+           class="bottom-link"
+           data-page="topics"
+           aria-label="Topics"
+           title="Topics">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 5h16M4 12h16M4 19h16"/>
+                <circle cx="7" cy="5" r="1"/>
+                <circle cx="7" cy="12" r="1"/>
+                <circle cx="7" cy="19" r="1"/>
+            </svg>
+        </a>
+
+        <a href="../index.html"
+           class="bottom-link home-logo"
+           data-page="home"
+           aria-label="Home"
+           title="Home">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m3 10 9-7 9 7"/>
+                <path d="M5 9v12h14V9M9 21v-7h6v7"/>
+            </svg>
+        </a>
+
+        <a href="calendar.html"
+           class="bottom-link"
+           data-page="calendar"
+           aria-label="Calendar"
+           title="Calendar">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="16" rx="2"/>
+                <path d="M7 3v4M17 3v4M3 10h18M8 14h2M14 14h2M8 17h2"/>
+            </svg>
+        </a>
+
+        <a href="stories.html"
+           class="bottom-link"
+           data-page="stories"
+           aria-label="Stories"
+           title="Stories">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 3h12v18l-6-4-6 4z"/>
+                <path d="M9 8h6M9 11h6"/>
+            </svg>
+        </a>
+
+        <a href="qibla.html"
+           class="bottom-link"
+           data-page="qibla"
+           aria-label="Qibla"
+           title="Qibla">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="m15.5 8.5-2.2 5.2-5.2 2.2 2.2-5.2z"/>
+                <circle cx="12" cy="12" r="1"/>
+            </svg>
+        </a>
+
+    </nav>
+
+    <!-- QURAN DATA AND API -->
+    <script>
+        /*
+         * Surah metadata:
+         * number, English name, Arabic name,
+         * Ayah count, revelation place.
+         */
+
+        const surahs = [
+            [1, "Al-Fatihah", "الْفَاتِحَة", 7, "Makki"],
+            [2, "Al-Baqarah", "الْبَقَرَة", 286, "Madani"],
+            [3, "Aal-Imran", "آل عِمْرَان", 200, "Madani"],
+            [4, "An-Nisa", "النِّسَاء", 176, "Madani"],
+            [5, "Al-Maidah", "الْمَائِدَة", 120, "Madani"],
+            [6, "Al-Anam", "الْأَنْعَام", 165, "Makki"],
+            [7, "Al-Araf", "الْأَعْرَاف", 206, "Makki"],
+            [8, "Al-Anfal", "الْأَنْفَال", 75, "Madani"],
+            [9, "At-Tawbah", "التَّوْبَة", 129, "Madani"],
+            [10, "Yunus", "يُونُس", 109, "Makki"],
+            [11, "Hud", "هُود", 123, "Makki"],
+            [12, "Yusuf", "يُوسُف", 111, "Makki"],
+            [13, "Ar-Rad", "الرَّعْد", 43, "Madani"],
+            [14, "Ibrahim", "إِبْرَاهِيم", 52, "Makki"],
+            [15, "Al-Hijr", "الْحِجْر", 99, "Makki"],
+            [16, "An-Nahl", "النَّحْل", 128, "Makki"],
+            [17, "Al-Isra", "الْإِسْرَاء", 111, "Makki"],
+            [18, "Al-Kahf", "الْكَهْف", 110, "Makki"],
+            [19, "Maryam", "مَرْيَم", 98, "Makki"],
+            [20, "Ta-Ha", "طه", 135, "Makki"],
+            [21, "Al-Anbiya", "الْأَنْبِيَاء", 112, "Makki"],
+            [22, "Al-Hajj", "الْحَجّ", 78, "Madani"],
+            [23, "Al-Muminun", "الْمُؤْمِنُون", 118, "Makki"],
+            [24, "An-Nur", "النُّور", 64, "Madani"],
+            [25, "Al-Furqan", "الْفُرْقَان", 77, "Makki"],
+            [26, "Ash-Shuara", "الشُّعَرَاء", 227, "Makki"],
+            [27, "An-Naml", "النَّمْل", 93, "Makki"],
+            [28, "Al-Qasas", "الْقَصَص", 88, "Makki"],
+            [29, "Al-Ankabut", "الْعَنْكَبُوت", 69, "Makki"],
+            [30, "Ar-Rum", "الرُّوم", 60, "Makki"],
+            [31, "Luqman", "لُقْمَان", 34, "Makki"],
+            [32, "As-Sajdah", "السَّجْدَة", 30, "Makki"],
+            [33, "Al-Ahzab", "الْأَحْزَاب", 73, "Madani"],
+            [34, "Saba", "سَبَأ", 54, "Makki"],
+            [35, "Fatir", "فَاطِر", 45, "Makki"],
+            [36, "Ya-Sin", "يس", 83, "Makki"],
+            [37, "As-Saffat", "الصَّافَّات", 182, "Makki"],
+            [38, "Sad", "ص", 88, "Makki"],
+            [39, "Az-Zumar", "الزُّمَر", 75, "Makki"],
+            [40, "Ghafir", "غَافِر", 85, "Makki"],
+            [41, "Fussilat", "فُصِّلَت", 54, "Makki"],
+            [42, "Ash-Shura", "الشُّورَى", 53, "Makki"],
+            [43, "Az-Zukhruf", "الزُّخْرُف", 89, "Makki"],
+            [44, "Ad-Dukhan", "الدُّخَان", 59, "Makki"],
+            [45, "Al-Jathiyah", "الْجَاثِيَة", 37, "Makki"],
+            [46, "Al-Ahqaf", "الْأَحْقَاف", 35, "Makki"],
+            [47, "Muhammad", "مُحَمَّد", 38, "Madani"],
+            [48, "Al-Fath", "الْفَتْح", 29, "Madani"],
+            [49, "Al-Hujurat", "الْحُجُرَات", 18, "Madani"],
+            [50, "Qaf", "ق", 45, "Makki"],
+            [51, "Adh-Dhariyat", "الذَّارِيَات", 60, "Makki"],
+            [52, "At-Tur", "الطُّور", 49, "Makki"],
+            [53, "An-Najm", "النَّجْم", 62, "Makki"],
+            [54, "Al-Qamar", "الْقَمَر", 55, "Makki"],
+            [55, "Ar-Rahman", "الرَّحْمَٰن", 78, "Madani"],
+            [56, "Al-Waqiah", "الْوَاقِعَة", 96, "Makki"],
+            [57, "Al-Hadid", "الْحَدِيد", 29, "Madani"],
+            [58, "Al-Mujadilah", "الْمُجَادِلَة", 22, "Madani"],
+            [59, "Al-Hashr", "الْحَشْر", 24, "Madani"],
+            [60, "Al-Mumtahanah", "الْمُمْتَحَنَة", 13, "Madani"],
+            [61, "As-Saff", "الصَّف", 14, "Madani"],
+            [62, "Al-Jumuah", "الْجُمُعَة", 11, "Madani"],
+            [63, "Al-Munafiqun", "الْمُنَافِقُون", 11, "Madani"],
+            [64, "At-Taghabun", "التَّغَابُن", 18, "Madani"],
+            [65, "At-Talaq", "الطَّلَاق", 12, "Madani"],
+            [66, "At-Tahrim", "التَّحْرِيم", 12, "Madani"],
+            [67, "Al-Mulk", "الْمُلْك", 30, "Makki"],
+            [68, "Al-Qalam", "الْقَلَم", 52, "Makki"],
+            [69, "Al-Haqqah", "الْحَاقَّة", 52, "Makki"],
+            [70, "Al-Maarij", "الْمَعَارِج", 44, "Makki"],
+            [71, "Nuh", "نُوح", 28, "Makki"],
+            [72, "Al-Jinn", "الْجِنّ", 28, "Makki"],
+            [73, "Al-Muzzammil", "الْمُزَّمِّل", 20, "Makki"],
+            [74, "Al-Muddaththir", "الْمُدَّثِّر", 56, "Makki"],
+            [75, "Al-Qiyamah", "الْقِيَامَة", 40, "Makki"],
+            [76, "Al-Insan", "الْإِنْسَان", 31, "Madani"],
+            [77, "Al-Mursalat", "الْمُرْسَلَات", 50, "Makki"],
+            [78, "An-Naba", "النَّبَأ", 40, "Makki"],
+            [79, "An-Naziat", "النَّازِعَات", 46, "Makki"],
+            [80, "Abasa", "عَبَسَ", 42, "Makki"],
+            [81, "At-Takwir", "التَّكْوِير", 29, "Makki"],
+            [82, "Al-Infitar", "الْإِنْفِطَار", 19, "Makki"],
+            [83, "Al-Mutaffifin", "الْمُطَفِّفِينَ", 36, "Makki"],
+            [84, "Al-Inshiqaq", "الْإِنْشِقَاق", 25, "Makki"],
+            [85, "Al-Buruj", "الْبُرُوج", 22, "Makki"],
+            [86, "At-Tariq", "الطَّارِق", 17, "Makki"],
+            [87, "Al-Ala", "الْأَعْلَى", 19, "Makki"],
+            [88, "Al-Ghashiyah", "الْغَاشِيَة", 26, "Makki"],
+            [89, "Al-Fajr", "الْفَجْر", 30, "Makki"],
+            [90, "Al-Balad", "الْبَلَد", 20, "Makki"],
+            [91, "Ash-Shams", "الشَّمْس", 15, "Makki"],
+            [92, "Al-Layl", "اللَّيْل", 21, "Makki"],
+            [93, "Ad-Duha", "الضُّحَى", 11, "Makki"],
+            [94, "Ash-Sharh", "الشَّرْح", 8, "Makki"],
+            [95, "At-Tin", "التِّين", 8, "Makki"],
+            [96, "Al-Alaq", "الْعَلَق", 19, "Makki"],
+            [97, "Al-Qadr", "الْقَدْر", 5, "Makki"],
+            [98, "Al-Bayyinah", "الْبَيِّنَة", 8, "Madani"],
+            [99, "Az-Zalzalah", "الزَّلْزَلَة", 8, "Madani"],
+            [100, "Al-Adiyat", "الْعَادِيَات", 11, "Makki"],
+            [101, "Al-Qariah", "الْقَارِعَة", 11, "Makki"],
+            [102, "At-Takathur", "التَّكَاثُر", 8, "Makki"],
+            [103, "Al-Asr", "الْعَصْر", 3, "Makki"],
+            [104, "Al-Humazah", "الْهُمَزَة", 9, "Makki"],
+            [105, "Al-Fil", "الْفِيل", 5, "Makki"],
+            [106, "Quraysh", "قُرَيْش", 4, "Makki"],
+            [107, "Al-Maun", "الْمَاعُون", 7, "Makki"],
+            [108, "Al-Kawthar", "الْكَوْثَر", 3, "Makki"],
+            [109, "Al-Kafirun", "الْكَافِرُون", 6, "Makki"],
+            [110, "An-Nasr", "النَّصْر", 3, "Madani"],
+            [111, "Al-Masad", "الْمَسَد", 5, "Makki"],
+            [112, "Al-Ikhlas", "الْإِخْلَاص", 4, "Makki"],
+            [113, "Al-Falaq", "الْفَلَق", 5, "Makki"],
+            [114, "An-Nas", "النَّاس", 6, "Makki"]
+        ];
+
+        // API editions
+        const QURAN_API = "https://api.alquran.cloud/v1/surah/";
+        const EDITIONS = "editions/quran-uthmani,ur.jalandhry,en.sahih";
+
+        // Page elements
+        const surahGrid = document.getElementById("surahGrid");
+        const surahSearch = document.getElementById("surahSearch");
+        const noResults = document.getElementById("noResults");
+        const surahCount = document.getElementById("surahCount");
+
+        const surahSection = document.getElementById("surahSection");
+        const quranReader = document.getElementById("quranReader");
+        const readerTitle = document.getElementById("readerTitle");
+        const verseContainer = document.getElementById("verseContainer");
+        const backButton = document.getElementById("backButton");
+
+        const previousSurahButton =
+            document.getElementById("previousSurah");
+
+        const nextSurahButton =
+            document.getElementById("nextSurah");
+
+        const searchContainer =
+            document.querySelector(".quran-search");
+
+        let selectedSurah = null;
+        let requestNumber = 0;
+
+        // Create a Surah card
+        function createSurahCard(surah) {
+            const [number, english, arabic, ayahs, revelation] = surah;
+
+            const card = document.createElement("button");
+            card.type = "button";
+            card.className = "surah-card";
+
+            card.setAttribute(
+                "aria-label",
+                `Open Surah ${number}: ${english}`
+            );
+
+            const numberBox = document.createElement("span");
+            numberBox.className = "surah-number";
+            numberBox.textContent = number;
+
+            const info = document.createElement("span");
+            info.className = "surah-info";
+
+            const name = document.createElement("h3");
+            name.textContent = english;
+
+            const details = document.createElement("p");
+            details.textContent = `${ayahs} Ayahs • ${revelation}`;
+
+            info.appendChild(name);
+            info.appendChild(details);
+
+            const arabicName = document.createElement("span");
+            arabicName.className = "surah-arabic";
+            arabicName.textContent = arabic;
+            arabicName.lang = "ar";
+            arabicName.dir = "rtl";
+
+            card.appendChild(numberBox);
+            card.appendChild(info);
+            card.appendChild(arabicName);
+
+            card.addEventListener("click", () => {
+                openSurah(surah);
+            });
+
+            return card;
+        }
+
+        // Display Surahs
+        function displaySurahs(list) {
+            surahGrid.replaceChildren();
+
+            list.forEach(surah => {
+                surahGrid.appendChild(createSurahCard(surah));
+            });
+
+            surahCount.textContent = `${list.length} of 114 Surahs`;
+
+            noResults.style.display =
+                list.length === 0 ? "block" : "none";
+        }
+
+        // Search Surahs
+        function searchSurahs() {
+            const query = surahSearch.value.trim().toLowerCase();
+
+            const filteredSurahs = surahs.filter(surah => {
+                const number = String(surah[0]);
+                const english = surah[1].toLowerCase();
+                const arabic = surah[2];
+                const revelation = surah[4].toLowerCase();
+
+                return (
+                    number.includes(query) ||
+                    english.includes(query) ||
+                    arabic.includes(query) ||
+                    revelation.includes(query)
+                );
+            });
+
+            displaySurahs(filteredSurahs);
+        }
+
+        // Show loading or error messages
+        function showReaderMessage(message, showRetry = false) {
+            const box = document.createElement("div");
+            box.className = "reader-message";
+            box.textContent = message;
+
+            if (showRetry && selectedSurah) {
+                const retryButton = document.createElement("button");
+                retryButton.type = "button";
+                retryButton.textContent = "Try Again";
+
+                retryButton.addEventListener("click", () => {
+                    openSurah(selectedSurah);
+                });
+
+                box.appendChild(retryButton);
+            }
+
+            verseContainer.replaceChildren(box);
+        }
+
+        // Create one verse card
+        function createVerseCard(arabicAyah, urduAyah, englishAyah) {
+            const card = document.createElement("article");
+            card.className = "verse-card";
+
+            const number = document.createElement("span");
+            number.className = "verse-number";
+            number.textContent = arabicAyah.numberInSurah;
+
+            const arabic = document.createElement("p");
+            arabic.className = "verse-arabic";
+            arabic.textContent = arabicAyah.text;
+            arabic.lang = "ar";
+            arabic.dir = "rtl";
+
+            const urduLabel = document.createElement("div");
+            urduLabel.className = "translation-label";
+            urduLabel.textContent = "Urdu Translation";
+
+            const urdu = document.createElement("p");
+            urdu.className = "verse-urdu";
+            urdu.textContent = urduAyah.text;
+            urdu.lang = "ur";
+            urdu.dir = "rtl";
+
+            const englishLabel = document.createElement("div");
+            englishLabel.className = "translation-label";
+            englishLabel.textContent = "English Translation";
+
+            const english = document.createElement("p");
+            english.className = "verse-english";
+            english.textContent = englishAyah.text;
+            english.lang = "en";
+            english.dir = "ltr";
+
+            card.appendChild(number);
+            card.appendChild(arabic);
+            card.appendChild(urduLabel);
+            card.appendChild(urdu);
+            card.appendChild(englishLabel);
+            card.appendChild(english);
+
+            return card;
+        }
+
+        // Display all verses
+        function displayVerses(editions) {
+            const arabicEdition = editions.find(
+                item => item.edition.identifier === "quran-uthmani"
+            );
+
+            const urduEdition = editions.find(
+                item => item.edition.identifier === "ur.jalandhry"
+            );
+
+            const englishEdition = editions.find(
+                item => item.edition.identifier === "en.sahih"
+            );
+
+            if (!arabicEdition || !urduEdition || !englishEdition) {
+                throw new Error(
+                    "One or more Quran translations are unavailable."
+                );
+            }
+
+            const arabicAyahs = arabicEdition.ayahs;
+            const urduAyahs = urduEdition.ayahs;
+            const englishAyahs = englishEdition.ayahs;
+
+            if (
+                arabicAyahs.length !== urduAyahs.length ||
+                arabicAyahs.length !== englishAyahs.length
+            ) {
+                throw new Error(
+                    "Quran editions do not have matching verse counts."
+                );
+            }
+
+            const verseList = document.createElement("div");
+            verseList.className = "verse-list";
+
+            arabicAyahs.forEach((ayah, index) => {
+                const urduAyah = urduAyahs[index];
+                const englishAyah = englishAyahs[index];
+
+                if (
+                    ayah.numberInSurah !== urduAyah.numberInSurah ||
+                    ayah.numberInSurah !== englishAyah.numberInSurah
+                ) {
+                    throw new Error(
+                        "Quran verse alignment could not be verified."
+                    );
+                }
+
+                verseList.appendChild(
+                    createVerseCard(ayah, urduAyah, englishAyah)
+                );
+            });
+
+            verseContainer.replaceChildren(verseList);
+        }
+
+        // Update previous/next buttons
+        function updateSurahNavigation(number) {
+            previousSurahButton.disabled = number <= 1;
+            nextSurahButton.disabled = number >= 114;
+        }
+
+        // Load selected Surah from API
+        async function openSurah(surah) {
+            selectedSurah = surah;
+
+            const [number, english, arabic, ayahs, revelation] = surah;
+            const currentRequest = ++requestNumber;
+
+            readerTitle.textContent = `Surah ${number} — ${english}`;
+            verseContainer.replaceChildren();
+
+            const detailsCard = document.createElement("div");
+            detailsCard.className = "reader-surah-details";
+
+            const arabicName = document.createElement("div");
+            arabicName.className = "reader-arabic-name";
+            arabicName.textContent = arabic;
+            arabicName.lang = "ar";
+            arabicName.dir = "rtl";
+
+            const englishName = document.createElement("h3");
+            englishName.className = "reader-english-name";
+            englishName.textContent = english;
+
+            const meta = document.createElement("p");
+            meta.className = "reader-meta";
+            meta.textContent =
+                `Surah ${number} • ${ayahs} Ayahs • ${revelation}`;
+
+            detailsCard.appendChild(arabicName);
+            detailsCard.appendChild(englishName);
+            detailsCard.appendChild(meta);
+
+            const translationNote = document.createElement("p");
+            translationNote.className = "translation-note";
+            translationNote.textContent =
+                "Arabic: Uthmani • Urdu: Jalandhri • English: Sahih International";
+
+            verseContainer.appendChild(detailsCard);
+            verseContainer.appendChild(translationNote);
+
+            const loading = document.createElement("div");
+            loading.className = "reader-message";
+            loading.textContent =
+                "Loading Quran verses and translations...";
+
+            verseContainer.appendChild(loading);
+
+            updateSurahNavigation(number);
+
+            surahSection.style.display = "none";
+            searchContainer.style.display = "none";
+            quranReader.style.display = "block";
+
+            quranReader.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+            try {
+                const response = await fetch(
+                    `${QURAN_API}${number}/${EDITIONS}`
+                );
+
+                if (!response.ok) {
+                    throw new Error(
+                        "Unable to connect to the Quran API."
+                    );
+                }
+
+                const result = await response.json();
+
+                if (currentRequest !== requestNumber) {
+                    return;
+                }
+
+                if (
+                    result.status !== "OK" ||
+                    !Array.isArray(result.data)
+                ) {
+                    throw new Error(
+                        "The Quran API returned an invalid response."
+                    );
+                }
+
+                displayVerses(result.data);
+
+            } catch (error) {
+                if (currentRequest !== requestNumber) {
+                    return;
+                }
+
+                console.error("Quran loading error:", error);
+
+                const existingDetails =
+                    verseContainer.querySelector(
+                        ".reader-surah-details"
+                    );
+
+                const existingNote =
+                    verseContainer.querySelector(
+                        ".translation-note"
+                    );
+
+                verseContainer.replaceChildren();
+
+                if (existingDetails) {
+                    verseContainer.appendChild(existingDetails);
+                }
+
+                if (existingNote) {
+                    verseContainer.appendChild(existingNote);
+                }
+
+                showReaderMessage(
+                    "Unable to load Quran verses. Please check your internet connection and try again.",
+                    true
+                );
+            }
+        }
+
+        // Return to Surah list
+        backButton.addEventListener("click", () => {
+            requestNumber++;
+
+            quranReader.style.display = "none";
+            surahSection.style.display = "block";
+            searchContainer.style.display = "block";
+
+            surahSearch.focus();
+
+            surahSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        });
+
+        // Previous Surah
+        previousSurahButton.addEventListener("click", () => {
+            if (!selectedSurah || selectedSurah[0] <= 1) {
+                return;
+            }
+
+            openSurah(surahs[selectedSurah[0] - 2]);
+        });
+
+        // Next Surah
+        nextSurahButton.addEventListener("click", () => {
+            if (!selectedSurah || selectedSurah[0] >= 114) {
+                return;
+            }
+
+            openSurah(surahs[selectedSurah[0]]);
+        });
+
+        // Search whenever user types
+        surahSearch.addEventListener("input", searchSurahs);
+
+        // Initial display
+        displaySurahs(surahs);
+
+        console.log(
+            `Quran page initialized: ${surahs.length} Surahs loaded.`
+        );
+    </script>
+
+    <!-- NAVIGATION SCRIPT -->
+    <script src="../js/navigation.js"></script>
+
+</body>
+</html>

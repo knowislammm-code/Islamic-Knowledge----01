@@ -1,0 +1,103 @@
+
+/* =========================================
+   ISLAMIC KNOWLEDGE - RESPONSIVE NAVIGATION
+========================================= */
+
+@media (max-width: 768px) {
+
+    /* Hide desktop navigation */
+    .lux-nav {
+        display: none;
+    }
+
+    /* Fixed mobile bottom navigation */
+    .lux-bottom-nav {
+        position: fixed;
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        align-items: center;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        padding: 8px 3px calc(8px + env(safe-area-inset-bottom));
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 0;
+        border-radius: 14px 14px 0 0;
+        background: linear-gradient(180deg, #151515, #080808);
+    }
+
+    .lux-bottom-nav .bottom-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        min-width: 0;
+        padding: 6px 1px;
+        color: #C7A64A;
+        text-decoration: none;
+        font-size: clamp(7px, 1.9vw, 9px);
+        font-weight: 600;
+        letter-spacing: .1px;
+        white-space: nowrap;
+        transition: color .25s ease, transform .25s ease;
+    }
+
+    .lux-bottom-nav .bottom-link svg {
+        width: 20px;
+        height: 20px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.7;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        transition: transform .25s ease;
+    }
+
+    .lux-bottom-nav .bottom-link:hover,
+    .lux-bottom-nav .bottom-link.active {
+        color: #FFD700;
+        text-shadow: 0 0 8px rgba(212, 175, 55, .4);
+    }
+
+    .lux-bottom-nav .bottom-link.active svg {
+        filter: drop-shadow(0 0 4px rgba(212, 175, 55, .5));
+        transform: translateY(-2px);
+    }
+
+    /* Centre home logo */
+    .lux-bottom-nav .home-logo {
+        width: 39px;
+        height: 39px;
+        margin-top: -15px;
+        padding: 7px;
+        border: 1px solid #D4AF37;
+        border-radius: 50%;
+        background: radial-gradient(circle, #29200B, #100E08);
+        box-shadow: 0 0 12px rgba(212, 175, 55, .25);
+    }
+
+    .lux-bottom-nav .home-logo svg {
+        width: 23px;
+        height: 23px;
+        color: #FFD700;
+    }
+
+    /* Keep page content clear of fixed navigation */
+    body {
+        padding-bottom: 76px;
+    }
+}
+
+/* Larger screens */
+@media (min-width: 769px) {
+    .lux-nav {
+        display: block;
+    }
+
+    .lux-bottom-nav {
+        display: none;
+    }
+}

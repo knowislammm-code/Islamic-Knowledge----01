@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#F8F7F3">
+
+    <title>Settings | Islamic Knowledge</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- LOAD SAVED THEME BEFORE PAGE DISPLAY -->
+    <script>
+        (function () {
+            let theme = "light";
+
+            try {
+                const savedTheme = localStorage.getItem("ik-theme");
+
+                if (savedTheme === "light" || savedTheme === "dark") {
+                    theme = savedTheme;
+                }
+            } catch (error) {
+                console.warn("Theme preference storage unavailable.");
+            }
+
+            document.documentElement.setAttribute("data-theme", theme);
+
+            window.addEventListener("pageshow", function () {
+                const saved = localStorage.getItem("ik-theme");
+
+                if (saved === "light" || saved === "dark") {
+                    document.documentElement.setAttribute("data-theme", saved);
+                }
+            });
+        })();
+    </script>
+
+    <style>
+        .settings-container {
+            width: min(100% - 32px, 900px);
+            margin: 45px auto;
+        }
+
+        .settings-heading {
+            margin-bottom: 28px;
+        }
+
+        .settings-heading h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .settings-heading p {
+            color: var(--muted, #999);
+        }
+
+        .settings-card {
+            background: var(--surface, #193429);
+            border: 1px solid var(--border, rgba(215,183,107,.15));
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .settings-card h2 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--primary, #D7B76B);
+        }
+
+        .settings-card p {
+            line-height: 1.7;
+            color: var(--text, #fff);
+        }
+
+        .theme-select {
+            width: 100%;
+            max-width: 300px;
+            padding: 12px;
+            margin-top: 12px;
+            border-radius: 9px;
+            border: 1px solid var(--primary, #D7B76B);
+            background: var(--bg, #10251D);
+            color: var(--text, #fff);
+            font-size: 15px;
+        }
+
+        .settings-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-top: 25px;
+        }
+
+        .settings-nav a {
+            color: var(--primary, #D7B76B);
+            text-decoration: none;
+        }
+
+        .settings-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .settings-footer {
+            text-align: center;
+            padding: 25px 15px;
+            color: var(--muted, #999);
+        }
+
+        .settings-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 20px 0 0 20px;
+            padding: 10px 16px;
+            border: 1px solid var(--primary, #D7B76B);
+            border-radius: 9px;
+            background: var(--surface, #193429);
+            color: var(--text, #fff);
+            cursor: pointer;
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- BACK BUTTON -->
+    <button id="backButton" class="settings-back" type="button">
+        ← Back
+    </button>
+
+    <main class="settings-container">
+
+        <div class="settings-heading">
+            <h1>Settings</h1>
+            <p>Manage your Islamic Knowledge experience.</p>
+        </div>
+
+        <!-- APPEARANCE -->
+        <section class="settings-card">
+            <h2>Appearance</h2>
+            <p>Choose your preferred website theme.</p>
+
+            <label for="themeSelect">Website Theme</label>
+            <br>
+
+            <select id="themeSelect" class="theme-select">
+                <option value="light">Light Mode</option>
+                <option value="dark">Dark Mode</option>
+            </select>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="settings-card" id="about">
+            <h2>About Us</h2>
+
+            <p>
+                Islamic Knowledge is a platform created to help people
+                explore authentic Islamic knowledge through the Quran,
+                Hadith, Islamic stories and educational topics.
+            </p>
+        </section>
+
+        <!-- PRIVACY -->
+        <section class="settings-card" id="privacy">
+            <h2>Privacy Policy</h2>
+
+            <p>
+                We respect your privacy. Visitors do not need to create
+                an account to read public content. Your selected
+                appearance preference may be saved locally in your browser.
+            </p>
+
+            <p>
+                Some website features may use external services or APIs
+                to provide content. Their respective privacy policies
+                may also apply.
+            </p>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="settings-card" id="contact">
+            <h2>Contact Us</h2>
+
+            <p>
+                For questions, feedback or corrections regarding the
+                content on Islamic Knowledge, please contact the
+                website administrator.
+            </p>
+
+            <p>
+                Email: <a href="mailto:knowislammm@gmail.com">knowislammm@gmail.com</a>
+            </p>
+        </section>
+
+        <!-- UPDATED NAVIGATION -->
+        <nav class="settings-nav" aria-label="Website navigation">
+
+            <a href="../index.html">Home</a>
+            <a href="quran.html">Quran</a>
+            <a href="hadith.html">Hadith</a>
+            <a href="calendar.html">Calendar</a>
+            <a href="qibla.html">Qibla</a>
+            <a href="topics.html">Topics</a>
+            <a href="stories.html">Stories</a>
+
+        </nav>
+
+    </main>
+
+    <footer class="settings-footer">
+        Read, reflect and seek knowledge.
+    </footer>
+
+    <!-- SETTINGS JAVASCRIPT -->
+    <script>
+        const themeSelect = document.getElementById("themeSelect");
+        const root = document.documentElement;
+        const THEME_KEY = "ik-theme";
+
+        // Apply and save the selected theme
+        function applyTheme(theme) {
+
+            if (theme !== "light" && theme !== "dark") {
+                return;
+            }
+
+            root.setAttribute("data-theme", theme);
+            themeSelect.value = theme;
+
+            const themeColor = document.querySelector(
+                'meta[name="theme-color"]'
+            );
+
+            if (themeColor) {
+                themeColor.content =
+                    theme === "dark" ? "#10251D" : "#F8F7F3";
+            }
+
+            try {
+                localStorage.setItem(THEME_KEY, theme);
+            } catch (error) {
+                console.warn("Could not save theme preference.");
+            }
+        }
+
+        // Load saved theme
+        let savedTheme = "light";
+
+        try {
+            const storedTheme = localStorage.getItem(THEME_KEY);
+
+            if (storedTheme === "light" || storedTheme === "dark") {
+                savedTheme = storedTheme;
+            }
+        } catch (error) {
+            console.warn("Could not read saved theme.");
+        }
+
+        applyTheme(savedTheme);
+
+        // Theme selector
+        themeSelect.addEventListener("change", function () {
+            applyTheme(this.value);
+        });
+
+        // Back button
+        document.getElementById("backButton").addEventListener("click", function () {
+
+            if (
+                document.referrer &&
+                new URL(document.referrer).origin === window.location.origin &&
+                window.history.length > 1
+            ) {
+                window.history.back();
+            } else {
+                window.location.replace("../index.html");
+            }
+        });
+
+        // Keep Settings synchronized if theme changes in another tab
+        window.addEventListener("storage", function (event) {
+            if (event.key === THEME_KEY) {
+                const theme = event.newValue;
+
+                if (theme === "light" || theme === "dark") {
+                    root.setAttribute("data-theme", theme);
+                    themeSelect.value = theme;
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

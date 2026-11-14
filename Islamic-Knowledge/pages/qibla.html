@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#F8F7F3">
+
+    <meta name="description"
+        content="Live Qibla compass to find the direction of the Holy Kaaba.">
+
+    <title>Qibla Direction | Islamic Knowledge</title>
+
+
+    <!-- ==============================
+         THEME BOOTSTRAP
+    =============================== -->
+    <script>
+        (function () {
+            const key = "ik-theme";
+            let theme = "light";
+
+            try {
+                const saved = localStorage.getItem(key);
+
+                if (saved === "light" || saved === "dark") {
+                    theme = saved;
+                }
+            } catch (error) {}
+
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
+
+
+    <!-- ==============================
+         GOOGLE FONTS
+    =============================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+
+    <!-- ==============================
+         GLOBAL CSS
+    =============================== -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/qibla.css">
+
+
+    <style>
+
+        /* ==================================================
+           HOME PAGE NAVIGATION ICON SIZING
+        ================================================== */
+
+        .lux-nav .nav-link svg,
+        .lux-bottom-nav .bottom-link svg {
+            width: 23px;
+            height: 23px;
+            flex-shrink: 0;
+        }
+
+        .lux-nav .home-logo svg,
+        .lux-bottom-nav .home-logo svg {
+            width: 29px;
+            height: 29px;
+        }
+
+
+        /* ==================================================
+           SETTINGS ICON — EXACT HOME PAGE DESIGN
+        ================================================== */
+
+        .settings-icon {
+            width: 42px;
+            height: 42px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            color: #D4AF37;
+            background: #0B0B0B;
+
+            border: 1px solid rgba(212, 175, 55, 0.55);
+            border-radius: 50%;
+
+            text-decoration: none;
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease,
+                border-color 0.3s ease;
+        }
+
+        .settings-icon svg {
+            width: 23px;
+            height: 23px;
+
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+
+            transition: transform 0.4s ease;
+        }
+
+        .settings-icon:hover {
+            border-color: #FFD700;
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.35);
+            transform: scale(1.06);
+        }
+
+        .settings-icon:hover svg {
+            transform: rotate(45deg);
+        }
+
+        .settings-icon:focus-visible {
+            outline: 2px solid #D4AF37;
+            outline-offset: 4px;
+        }
+
+
+        /* ==================================================
+           MOBILE — ICONS ONLY
+        ================================================== */
+
+        @media (max-width: 768px) {
+
+            .lux-bottom-nav .bottom-link .nav-label {
+                display: none !important;
+            }
+
+            .lux-bottom-nav .bottom-link {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                min-width: 0;
+            }
+
+            .lux-bottom-nav .bottom-link svg {
+                display: block;
+
+                width: 23px;
+                height: 23px;
+            }
+        }
+
+
+        /* ==================================================
+           REDUCED MOTION
+        ================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .settings-icon,
+            .settings-icon svg {
+                transition: none;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     HEADER
+================================================== -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <a href="../index.html" class="brand">
+
+            <span class="brand-icon">☪</span>
+
+            <span>
+                Islamic <strong>Knowledge</strong>
+            </span>
+
+        </a>
+
+
+        <!-- EXACT HOME PAGE SETTINGS GEAR -->
+
+        <a href="settings.html"
+           class="theme-toggle settings-icon"
+           id="settingsButton"
+           aria-label="Open Settings"
+           title="Settings">
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+
+                <path d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6Z"/>
+
+                <path d="M19.4 15a7.8 7.8 0 0 0 0-2l1.5-1.2-1.5-2.6-1.8.7a7.8 7.8 0 0 0-1.7-1L15.6 7h-3.2l-.3 1.9a7.8 7.8 0 0 0-1.7 1l-1.8-.7-1.5 2.6L8.6 13a7.8 7.8 0 0 0 0 2l-1.5 1.2 1.5 2.6 1.8-.7a7.8 7.8 0 0 0 1.7 1l.3 1.9h3.2l.3-1.9a7.8 7.8 0 0 0 1.7-1l1.8.7 1.5-2.6L19.4 15Z"/>
+
+            </svg>
+
+        </a>
+
+    </div>
+
+</header>
+
+
+
+<!-- ==================================================
+     DESKTOP NAVIGATION
+     EXACT HOME PAGE ICONS
+================================================== -->
+
+<nav class="lux-nav" aria-label="Main navigation">
+
+    <div class="lux-nav-inner">
+
+
+        <!-- QURAN -->
+
+        <a href="quran.html"
+           class="nav-link"
+           data-page="quran"
+           aria-label="Quran">
+
+            <svg viewBox="0 0 24 24"
+                 aria-hidden="true">
+
+                <path d="M12 7v14M12 7C9 4 5 4 2 5v14c4-1 7-1 10 2M12 7c3-3 7-3 10-2v14c-4-1-7-1-10 2"/>
+
+            </svg>
+
+            <span class="nav-label">Quran</span>
+
+        </a>
+
+
+
+        <!-- HADITH -->
+
+        <a href="hadith.html"
+           class="nav-link"
+           data-page="hadith"
+           aria-label="Hadith">
+
+            <svg viewBox="0 0 24 24"
+                 aria-hidden="true">
+
+                <path d="M4 4h12a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3z"/>
+
+                <path d="M4 17a3 3 0 0 1 3-3h12M8 8h7M8 11h7"/>
+
+            </svg>
+
+            <span class="nav-label">Hadith</span>
+
+        </a>
+
+
+
+        <!-- TOPIC -->
+
+        <a href="topics.html"
+           class="nav-link"
+           data-page="topics"
+           aria-label="Topics">
+
+            <svg viewBox="0 0 24 24"
+                 aria-hidden="true">
+
+                <path d="M4 5h16M4 12h16M4 19h16"/>
+
+                <circle cx="7" cy="5" r="1"/>
+                <circle cx="7" cy="12" r="1"/>
+                <circle cx="7" cy="19" r="1"/>
+
+            </svg>
+
+            <span class="nav-label">Topic</span>
+
+        </a>
+
+
+
+        <!-- HOME -->
+
+        <a href="../index.html"
+           class="nav-link home-logo"
+           data-page="home"
+           aria-label="Home"
+           title="Home">
+
+            <svg viewBox="0 0 24 24"
+                 aria-hidden="true">
+
+                <path d="m3 10 9-7 9 7"/>
+
+                <path d="M5 9v12h14V9M9 21v-7h6v7"/>
+
+            </svg>
+
+        </a>
+
+
+
+        <!-- CALENDAR -->
+
+        <a href="calendar.html"
+           class="nav-link"
+           data-page="calendar"
+           aria-label="Calendar">
+
+            <svg viewBox="0 0 24 24"
+                 aria-hidden="true">
+
+                <rect x="3"
+                      y="5"
+                      width="18"
+                      height="16"
+                      rx="2"/>
+
+                <path d="M7 3v4M17 3v4M3 10h18M8 14h2M14 14h2M8 17h2"/>
+
+            </svg>
+
+            <span class="nav-label">Calendar</span>
+
+        </a>
+
+
+
+        <!-- STORIES -->
+
+        <a href="stories.html"
+           class="nav-link"
+           data-page="stories"
+           aria-label="Stories">
+
+            <svg viewBox="0 0 24 24"
+                 aria-hidden="true">
+
+                <path d="M6 3h12v18l-6-4-6 4z"/>
+
+                <path d="M9 8h6M9 11h6"/>
+
+            </svg>
+
+            <span class="nav-label">Stories</span>
+
+        </a>
+
+
+
+        <!-- QIBLA — ACTIVE -->
+
+        <a href="qibla.html"
+           class="nav-link active"
+           data-page="qibla"
+           aria-label="Qibla"
+           aria-current="page">
+
+            <svg viewBox="0 0 24 24"
+                 aria-hidden="true">
+
+                <circle cx="12" cy="12" r="9"/>
+
+                <path d="m15.5 8.5-2.2 5.2-5.2 2.2 2.2-5.2z"/>
+
+                <circle cx="12" cy="12" r="1"/>
+
+            </svg>
+
+            <span class="nav-label">Qibla</span>
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- ==================================================
+     MAIN QIBLA CONTENT
+================================================== -->
+
+<main class="qibla-page">
+
+
+    <section class="qibla-hero container">
+
+        <span class="eyebrow">
+            DIRECTION OF PRAYER
+        </span>
+
+        <h1>
+            Live Qibla Compass
+        </h1>
+
+        <p>
+            Turn your phone to find the direction of the Holy Kaaba.
+        </p>
+
+    </section>
+
+
+
+    <section class="container qibla-section">
+
+        <div class="qibla-card">
+
+
+            <div class="qibla-status"
+                 id="locationStatus"
+                 role="status">
+
+                Connecting to location and compass...
+
+            </div>
+
+
+
+            <div class="compass-wrap">
+
+                <div class="compass"
+                     id="compass">
+
+
+                    <span class="compass-mark north">
+                        N
+                    </span>
+
+                    <span class="compass-mark east">
+                        E
+                    </span>
+
+                    <span class="compass-mark south">
+                        S
+                    </span>
+
+                    <span class="compass-mark west">
+                        W
+                    </span>
+
+
+
+                    <div class="compass-inner">
+
+
+                        <div class="compass-needle"
+                             id="compassNeedle">
+
+                            <div class="needle-top"></div>
+
+                            <div class="needle-bottom"></div>
+
+                        </div>
+
+
+                        <div class="compass-center"></div>
+
+                    </div>
+
+
+
+                    <div class="kaaba-marker">
+                        🕋
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <div class="qibla-results">
+
+                <span class="qibla-label">
+                    QIBLA BEARING
+                </span>
+
+                <h2 id="bearingValue">
+                    --°
+                </h2>
+
+                <p id="bearingText">
+                    Waiting for your location
+                </p>
+
+                <p id="locationName">
+                    Detecting your location...
+                </p>
+
+            </div>
+
+
+
+            <p class="compass-help"
+               id="compassHelp">
+
+                Your phone's compass will start automatically when supported.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <section class="container qibla-section">
+
+        <div class="qibla-note">
+
+            <strong>
+                About the live Qibla compass
+            </strong>
+
+            <p>
+                The compass uses your device location and orientation sensor
+                to calculate the direction towards the Kaaba in Makkah.
+                Keep your phone flat and away from magnetic objects.
+                Accuracy depends on your device and surroundings.
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<!-- ==================================================
+     FOOTER
+================================================== -->
+
+<footer class="footer">
+
+    <div class="container">
+
+        <h3>
+            ☪ Islamic Knowledge
+        </h3>
+
+        <p>
+            Read, reflect and seek knowledge.
+        </p>
+
+        <p class="copyright">
+            © 2026 Islamic Knowledge. All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+
+<!-- ==================================================
+     MOBILE NAVIGATION
+     EXACT SAME ICONS AS HOME
+     ICONS ONLY — NO LABELS
+================================================== -->
+
+<nav class="lux-bottom-nav"
+     aria-label="Mobile navigation">
+
+
+    <!-- QURAN -->
+
+    <a href="quran.html"
+       class="bottom-link"
+       data-page="quran"
+       aria-label="Quran"
+       title="Quran">
+
+        <svg viewBox="0 0 24 24"
+             aria-hidden="true">
+
+            <path d="M12 7v14M12 7C9 4 5 4 2 5v14c4-1 7-1 10 2M12 7c3-3 7-3 10-2v14c-4-1 7-1-10 2"/>
+
+        </svg>
+
+        <span class="nav-label">
+            Quran
+        </span>
+
+    </a>
+
+
+
+    <!-- HADITH -->
+
+    <a href="hadith.html"
+       class="bottom-link"
+       data-page="hadith"
+       aria-label="Hadith"
+       title="Hadith">
+
+        <svg viewBox="0 0 24 24"
+             aria-hidden="true">
+
+            <path d="M4 4h12a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3z"/>
+
+            <path d="M4 17a3 3 0 0 1 3-3h12M8 8h7M8 11h7"/>
+
+        </svg>
+
+        <span class="nav-label">
+            Hadith
+        </span>
+
+    </a>
+
+
+
+    <!-- TOPIC -->
+
+    <a href="topics.html"
+       class="bottom-link"
+       data-page="topics"
+       aria-label="Topics"
+       title="Topics">
+
+        <svg viewBox="0 0 24 24"
+             aria-hidden="true">
+
+            <path d="M4 5h16M4 12h16M4 19h16"/>
+
+            <circle cx="7" cy="5" r="1"/>
+            <circle cx="7" cy="12" r="1"/>
+            <circle cx="7" cy="19" r="1"/>
+
+        </svg>
+
+        <span class="nav-label">
+            Topic
+        </span>
+
+    </a>
+
+
+
+    <!-- HOME -->
+
+    <a href="../index.html"
+       class="bottom-link home-logo"
+       data-page="home"
+       aria-label="Home"
+       title="Home">
+
+        <svg viewBox="0 0 24 24"
+             aria-hidden="true">
+
+            <path d="m3 10 9-7 9 7"/>
+
+            <path d="M5 9v12h14V9M9 21v-7h6v7"/>
+
+        </svg>
+
+    </a>
+
+
+
+    <!-- CALENDAR -->
+
+    <a href="calendar.html"
+       class="bottom-link"
+       data-page="calendar"
+       aria-label="Calendar"
+       title="Calendar">
+
+        <svg viewBox="0 0 24 24"
+             aria-hidden="true">
+
+            <rect x="3"
+                  y="5"
+                  width="18"
+                  height="16"
+                  rx="2"/>
+
+            <path d="M7 3v4M17 3v4M3 10h18M8 14h2M14 14h2M8 17h2"/>
+
+        </svg>
+
+        <span class="nav-label">
+            Calendar
+        </span>
+
+    </a>
+
+
+
+    <!-- STORIES -->
+
+    <a href="stories.html"
+       class="bottom-link"
+       data-page="stories"
+       aria-label="Stories"
+       title="Stories">
+
+        <svg viewBox="0 0 24 24"
+             aria-hidden="true">
+
+            <path d="M6 3h12v18l-6-4-6 4z"/>
+
+            <path d="M9 8h6M9 11h6"/>
+
+        </svg>
+
+        <span class="nav-label">
+            Stories
+        </span>
+
+    </a>
+
+
+
+    <!-- QIBLA — ACTIVE -->
+
+    <a href="qibla.html"
+       class="bottom-link active"
+       data-page="qibla"
+       aria-label="Qibla"
+       title="Qibla"
+       aria-current="page">
+
+        <svg viewBox="0 0 24 24"
+             aria-hidden="true">
+
+            <circle cx="12" cy="12" r="9"/>
+
+            <path d="m15.5 8.5-2.2 5.2-5.2 2.2 2.2-5.2z"/>
+
+            <circle cx="12" cy="12" r="1"/>
+
+        </svg>
+
+        <span class="nav-label">
+            Qibla
+        </span>
+
+    </a>
+
+
+</nav>
+
+
+
+<!-- ==================================================
+     JAVASCRIPT
+================================================== -->
+
+<script src="../js/navigation.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/qibla.js"></script>
+
+</body>
+</html>
+```
